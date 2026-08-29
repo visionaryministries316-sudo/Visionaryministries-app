@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Visionary Ministries</title>
+<style>
+  :root {
+    --sky: #BFE6EF;
+    --sky-light: #E3F5F9;
+    --teal: #157B7D;
+    --teal-dark: #0E5C5E;
+    --gold: #D4A017;
+    --gold-light: #F0CC5C;
+    --lime: #8FBC3F;
+    --lime-dark: #6E9A2C;
+    --ink: #1F3B3C;
+    --white: #FDFBF6;
+    --shadow: 0 6px 18px rgba(20, 60, 62, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    background: var(--teal-dark, #0E5C5E);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    text-decoration: none;
+    font-weight: 700;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 10px;
+  }
+
+  /* Visible keyboard focus outline on interactive elements */
+  button:focus-visible,
+  a:focus-visible,
+  select:focus-visible {
+    outline: 3px solid #0E5C5E;
+    outline-offset: 2px;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, var(--sky-light) 0%, var(--sky) 100%);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--sky-light);
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.08);
+  }
+
+  /* ---------- HEADER ---------- */
+  header {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    padding: 22px 20px 60px;
+    position: relative;
+    color: var(--white);
+    text-align: center;
+  }
+
+  .lang-toggle {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    display: flex;
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 3px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .lang-toggle button {
+    border: none;
+    background: transparent;
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .lang-toggle button.active {
+    background: var(--gold);
+    color: var(--teal-dark);
+  }
+
+  .logo-wrap {
+    width: 84px;
+    height: 84px;
+    margin: 6px auto 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold-light);
+    box-shadow: var(--shadow);
+  }
+
+  .logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  header h1 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  header p {
+    font-size: 13px;
+    opacity: 0.9;
+    font-style: italic;
+  }
+
+  /* Mountain ridge divider - signature element */
+  .ridge {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    display: block;
+  }
+
+  /* ---------- MAIN ---------- */
+  main {
+    padding: 26px 18px 40px;
+  }
+
+  .verse-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 26px;
+    border-left: 5px solid var(--gold);
+  }
+
+  .verse-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .verse-card p {
+    font-size: 15px;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .verse-card .ref {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal-dark);
+    font-style: normal;
+  }
+
+  .path {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 20px;
+  }
+
+  /* The river line, echoing the logo's winding path, connects each stop */
+  .path::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 23px;
+    bottom: 23px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--lime) 0%, var(--teal) 50%, var(--gold) 100%);
+    border-radius: 3px;
+  }
+
+  .stop {
+    position: relative;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px 16px 14px 14px;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    color: var(--ink);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.15s ease;
+    text-align: left;
+    width: 100%;
+  }
+
+  .stop::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 17px;
+    height: 3px;
+    background: var(--sky);
+  }
+
+  .stop:active {
+    transform: scale(0.98);
+  }
+
+  .stop-marker {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .stop-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(20,60,62,0.25);
+  }
+
+  .stop-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .stop-icon.teal { background: var(--teal); }
+  .stop-icon.gold { background: var(--gold); }
+  .stop-icon.lime { background: var(--lime-dark); }
+  .stop-icon.donate-icon {
+    background: var(--gold-light);
+    box-shadow: 0 3px 8px rgba(212,160,23,0.4);
+  }
+
+  .stop-icon.photo-icon {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .stop-icon.photo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .stop-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .stop-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal-dark);
+  }
+
+  .stop-sub {
+    font-size: 12px;
+    color: var(--ink);
+    opacity: 0.65;
+    line-height: 1.3;
+  }
+
+  .stop-arrow {
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--teal);
+    opacity: 0.5;
+  }
+
+  .stop-final {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  }
+
+  .stop-final .stop-title { color: var(--teal-dark); }
+  .stop-final .stop-sub { color: var(--teal-dark); opacity: 0.75; }
+  .stop-final .stop-arrow { color: var(--teal-dark); opacity: 0.7; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--teal-dark);
+    opacity: 0.7;
+  }
+
+  /* ---------- SUBPAGE (Bible / Devotional / Photo) ---------- */
+  .subpage {
+    display: none;
+    min-height: 100vh;
+    background: var(--sky-light);
+  }
+
+  .subpage.active { display: block; }
+
+  .sub-header {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    padding: 18px 18px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .back-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: var(--white);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .sub-header h2 {
+    font-size: 18px;
+  }
+
+  .sub-body {
+    padding: 22px 18px;
+  }
+
+  .bible-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  select {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--sky);
+    background: var(--white);
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .go-btn {
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .bible-text {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 120px;
+  }
+
+  .bible-text .status {
+    color: var(--teal-dark);
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .devo-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .devo-card .icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 14px;
+    background: rgba(212,160,23,0.15);
+  }
+
+  .devo-card h3 {
+    font-size: 17px;
+    color: var(--teal-dark);
+    margin-bottom: 10px;
+  }
+
+  .devo-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .coming-soon {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--lime);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 12px;
+  }
+
+  .devo-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .nav-arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-arrow:disabled {
+    background: var(--sky);
+    color: var(--teal-dark);
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .devo-day-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal-dark);
+  }
+
+  .restart-link {
+    text-align: center;
+    font-size: 12px;
+    color: var(--teal);
+    text-decoration: underline;
+    margin-bottom: 18px;
+    cursor: pointer;
+  }
+
+  .devo-series-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .devo-transition-note {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal-dark);
+    background: rgba(212,160,23,0.12);
+    border-radius: 10px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+  }
+
+  .devo-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  .devo-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .devo-reading {
+    border-left: 5px solid var(--gold);
+  }
+
+  .devo-ref {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--teal-dark);
+    margin-bottom: 8px;
+  }
+
+  .devo-verse {
+    font-size: 15px;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .devo-thought {
+    border-left: 5px solid var(--teal);
+  }
+
+  .devo-thought p, .devo-prompt-card p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .devo-prompt-card {
+    border-left: 5px solid var(--lime);
+    background: rgba(143,188,63,0.08);
+  }
+
+  .kids-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .kids-story-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .kids-story-card:active {
+    transform: scale(0.98);
+  }
+
+  .kids-story-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--lime-dark);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .kids-story-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .kids-story-info .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal-dark);
+  }
+
+  .kids-story-info .ref {
+    font-size: 12px;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+
+  .photo-drop {
+    background: var(--white);
+    border: 2px dashed var(--teal);
+    border-radius: 16px;
+    padding: 34px 20px;
+    text-align: center;
+    color: var(--teal-dark);
+  }
+
+  .photo-drop svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .photo-drop p {
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .primary-btn {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    padding: 14px 26px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  [lang-es] { display: none; }
+  body.lang-es [lang-en] { display: none; }
+  body.lang-es [lang-es] { display: inline; }
+  body.lang-es [lang-es].block { display: block; }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ================= HOME SCREEN ================= -->
+  <div class="subpage active" id="home">
+    <header>
+      <div class="lang-toggle" role="group" aria-label="Language selection">
+        <button id="btn-en" class="active" onclick="setLang('en')" aria-label="Switch to English" aria-pressed="true">EN</button>
+        <button id="btn-es" onclick="setLang('es')" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+      </div>
+      <div class="logo-wrap"><img src="logo.jpg" alt="Visionary Ministries logo"></div>
+      <h1><span lang-en>Visionary Ministries</span><span lang-es>Ministerios Visionarios</span></h1>
+      <p><span lang-en>Garden of Promise Retreat</span><span lang-es>Retiro Jardín de la Promesa</span></p>
+
+      <svg class="ridge" viewBox="0 0 480 42" preserveAspectRatio="none">
+        <path fill="#E3F5F9" d="M0,42 L0,20 L40,32 L80,10 L120,28 L160,6 L200,24 L240,14 L280,30 L320,8 L360,26 L400,16 L440,30 L480,18 L480,42 Z"/>
+      </svg>
+    </header>
+
+    <main id="main-content">
+      <div class="verse-card">
+        <div class="label"><span lang-en>Verse of the Day</span><span lang-es>Versículo del Día</span></div>
+        <p>
+          <span lang-en>"I can do all things through Christ which strengtheneth me."</span>
+          <span lang-es>"Todo lo puedo en Cristo que me fortalece."</span>
+          <span class="ref"><span lang-en>Philippians 4:13, KJV</span><span lang-es>Filipenses 4:13, RVR</span></span>
+        </p>
+      </div>
+
+      <div class="path">
+        <a class="stop" href="https://www.eltabernaculodereunion.org/" target="_blank" rel="noopener" aria-label="El Tabernáculo de Reunión, visit our church website, opens in a new tab">
+          <div class="stop-marker">
+            <div class="stop-icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FDFBF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title">El Tabernáculo de Reunión</span>
+            <span class="stop-sub"><span lang-en>Visit our church website</span><span lang-es>Visita el sitio web de la iglesia</span></span>
+          </div>
+          <span class="stop-arrow">↗</span>
+        </a>
+
+        <button class="stop" onclick="showPage('bible')">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-bible.png" alt="Bible">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Read the Bible</span><span lang-es>Leer la Biblia</span></span>
+            <span class="stop-sub"><span lang-en>KJV in English, Reina-Valera in Spanish</span><span lang-es>KJV en inglés, Reina-Valera en español</span></span>
+          </div>
+          <span class="stop-arrow">›</span>
+        </button>
+
+        <button class="stop" onclick="showPage('kids')">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-kids.png" alt="Kids' Bible Stories">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Kids' Bible Stories</span><span lang-es>Historias Bíblicas para Niños</span></span>
+            <span class="stop-sub"><span lang-en>12 favorite stories, told simply</span><span lang-es>12 historias favoritas, contadas de forma sencilla</span></span>
+          </div>
+          <span class="stop-arrow">›</span>
+        </button>
+
+        <button class="stop" onclick="showPage('devo')">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-devotional.png" alt="Daily Devotional">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Daily Devotional</span><span lang-es>Devocional Diario</span></span>
+            <span class="stop-sub"><span lang-en>A 30-day walk through the Book of John</span><span lang-es>Un recorrido de 30 días por el libro de Juan</span></span>
+          </div>
+          <span class="stop-arrow">›</span>
+        </button>
+
+        <a class="stop" href="https://form.jotform.com/260844707270155" target="_blank" rel="noopener" aria-label="Book a Retreat, reserve your spot at Garden of Promise, opens in a new tab">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-retreat.png" alt="Book a Retreat">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Book a Retreat</span><span lang-es>Reservar un Retiro</span></span>
+            <span class="stop-sub"><span lang-en>Reserve your spot at Garden of Promise</span><span lang-es>Reserva tu lugar en Jardín de la Promesa</span></span>
+          </div>
+          <span class="stop-arrow">↗</span>
+        </a>
+
+        <button class="stop" onclick="showPage('photos')">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-camera.png" alt="Share Photos and Videos">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Share Photos &amp; Videos</span><span lang-es>Compartir Fotos y Videos</span></span>
+            <span class="stop-sub"><span lang-en>Upload your retreat memories</span><span lang-es>Sube tus recuerdos del retiro</span></span>
+          </div>
+          <span class="stop-arrow">›</span>
+        </button>
+
+        <a class="stop" href="https://drive.google.com/drive/folders/1DyDWR4TfMjiYRPyuXVSE0gx0C2rgVqMc?usp=sharing" target="_blank" rel="noopener" aria-label="Photo Gallery, see approved photos from past retreats, opens in a new tab">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-gallery.png" alt="Photo Gallery">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Photo Gallery</span><span lang-es>Galería de Fotos</span></span>
+            <span class="stop-sub"><span lang-en>See approved photos from past retreats</span><span lang-es>Mira fotos aprobadas de retiros pasados</span></span>
+          </div>
+          <span class="stop-arrow">↗</span>
+        </a>
+
+        <a class="stop stop-final" href="#donate-placeholder" onclick="alert('Donate link coming soon! We\'ll connect this to your giving page.'); return false;">
+          <div class="stop-marker">
+            <div class="stop-icon photo-icon">
+              <img src="icon-donate.png" alt="Give / Donate">
+            </div>
+          </div>
+          <div class="stop-text">
+            <span class="stop-title"><span lang-en>Give / Donate</span><span lang-es>Donar</span></span>
+            <span class="stop-sub"><span lang-en>Support Visionary Ministries</span><span lang-es>Apoya a Ministerios Visionarios</span></span>
+          </div>
+          <span class="stop-arrow">↗</span>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <span lang-en>Visionary Ministries &middot; East Stroudsburg, PA</span>
+      <span lang-es>Ministerios Visionarios &middot; East Stroudsburg, PA</span>
+    </footer>
+  </div>
+
+  <!-- ================= BIBLE PAGE ================= -->
+  <div class="subpage" id="bible">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">←</button>
+      <h2><span lang-en>Read the Bible</span><span lang-es>Leer la Biblia</span></h2>
+    </div>
+    <div class="sub-body">
+      <div class="bible-controls">
+        <select id="book-select" aria-label="Select Bible book" onchange="updateChapterOptions()">
+          <optgroup label="Old Testament / Antiguo Testamento">
+            <option value="Genesis">Genesis / Génesis</option>
+            <option value="Exodus">Exodus / Éxodo</option>
+            <option value="Leviticus">Leviticus / Levítico</option>
+            <option value="Numbers">Numbers / Números</option>
+            <option value="Deuteronomy">Deuteronomy / Deuteronomio</option>
+            <option value="Joshua">Joshua / Josué</option>
+            <option value="Judges">Judges / Jueces</option>
+            <option value="Ruth">Ruth / Rut</option>
+            <option value="1 Samuel">1 Samuel</option>
+            <option value="2 Samuel">2 Samuel</option>
+            <option value="1 Kings">1 Kings / 1 Reyes</option>
+            <option value="2 Kings">2 Kings / 2 Reyes</option>
+            <option value="1 Chronicles">1 Chronicles / 1 Crónicas</option>
+            <option value="2 Chronicles">2 Chronicles / 2 Crónicas</option>
+            <option value="Ezra">Ezra / Esdras</option>
+            <option value="Nehemiah">Nehemiah / Nehemías</option>
+            <option value="Esther">Esther / Ester</option>
+            <option value="Job">Job</option>
+            <option value="Psalms">Psalms / Salmos</option>
+            <option value="Proverbs">Proverbs / Proverbios</option>
+            <option value="Ecclesiastes">Ecclesiastes / Eclesiastés</option>
+            <option value="Song of Solomon">Song of Solomon / Cantares</option>
+            <option value="Isaiah">Isaiah / Isaías</option>
+            <option value="Jeremiah">Jeremiah / Jeremías</option>
+            <option value="Lamentations">Lamentations / Lamentaciones</option>
+            <option value="Ezekiel">Ezekiel / Ezequiel</option>
+            <option value="Daniel">Daniel</option>
+            <option value="Hosea">Hosea / Oseas</option>
+            <option value="Joel">Joel</option>
+            <option value="Amos">Amos / Amós</option>
+            <option value="Obadiah">Obadiah / Abdías</option>
+            <option value="Jonah">Jonah / Jonás</option>
+            <option value="Micah">Micah / Miqueas</option>
+            <option value="Nahum">Nahum / Nahúm</option>
+            <option value="Habakkuk">Habakkuk / Habacuc</option>
+            <option value="Zephaniah">Zephaniah / Sofonías</option>
+            <option value="Haggai">Haggai / Hageo</option>
+            <option value="Zechariah">Zechariah / Zacarías</option>
+            <option value="Malachi">Malachi / Malaquías</option>
+          </optgroup>
+          <optgroup label="New Testament / Nuevo Testamento">
+            <option value="Matthew">Matthew / Mateo</option>
+            <option value="Mark">Mark / Marcos</option>
+            <option value="Luke">Luke / Lucas</option>
+            <option value="John" selected>John / Juan</option>
+            <option value="Acts">Acts / Hechos</option>
+            <option value="Romans">Romans / Romanos</option>
+            <option value="1 Corinthians">1 Corinthians / 1 Corintios</option>
+            <option value="2 Corinthians">2 Corinthians / 2 Corintios</option>
+            <option value="Galatians">Galatians / Gálatas</option>
+            <option value="Ephesians">Ephesians / Efesios</option>
+            <option value="Philippians">Philippians / Filipenses</option>
+            <option value="Colossians">Colossians / Colosenses</option>
+            <option value="1 Thessalonians">1 Thessalonians / 1 Tesalonicenses</option>
+            <option value="2 Thessalonians">2 Thessalonians / 2 Tesalonicenses</option>
+            <option value="1 Timothy">1 Timothy / 1 Timoteo</option>
+            <option value="2 Timothy">2 Timothy / 2 Timoteo</option>
+            <option value="Titus">Titus / Tito</option>
+            <option value="Philemon">Philemon / Filemón</option>
+            <option value="Hebrews">Hebrews / Hebreos</option>
+            <option value="James">James / Santiago</option>
+            <option value="1 Peter">1 Peter / 1 Pedro</option>
+            <option value="2 Peter">2 Peter / 2 Pedro</option>
+            <option value="1 John">1 John / 1 Juan</option>
+            <option value="2 John">2 John / 2 Juan</option>
+            <option value="3 John">3 John / 3 Juan</option>
+            <option value="Jude">Jude / Judas</option>
+            <option value="Revelation">Revelation / Apocalipsis</option>
+          </optgroup>
+        </select>
+        <select id="chapter-select" aria-label="Select chapter number"></select>
+      </div>
+      <button class="go-btn" style="width:100%;margin-bottom:18px;" onclick="loadScripture()">
+        <span lang-en>Show Chapter</span><span lang-es>Mostrar Capítulo</span>
+      </button>
+      <div class="bible-text" id="bible-output">
+        <p class="status"><span lang-en>Pick a book and chapter, then tap "Show Chapter."</span><span lang-es>Elige un libro y capítulo, luego toca "Mostrar Capítulo."</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= KIDS BIBLE PAGE ================= -->
+  <div class="subpage" id="kids">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">←</button>
+      <h2><span lang-en>Kids' Bible Stories</span><span lang-es>Historias Bíblicas para Niños</span></h2>
+    </div>
+    <div class="sub-body">
+
+      <!-- Story list view -->
+      <div id="kids-list-view">
+        <div class="kids-list" id="kids-story-list"></div>
+      </div>
+
+      <!-- Single story view -->
+      <div id="kids-story-view" style="display:none;">
+        <div class="restart-link" onclick="closeKidsStory()">
+          <span lang-en>← Back to all stories</span><span lang-es>← Volver a todas las historias</span>
+        </div>
+
+        <div class="devo-card devo-reading">
+          <div class="label"><span lang-en>Story</span><span lang-es>Historia</span></div>
+          <div class="devo-ref" id="kids-story-title">Creation</div>
+          <div class="devo-ref" style="font-size:12px;font-weight:400;opacity:0.7;margin-top:-4px;" id="kids-story-ref">Genesis 1</div>
+        </div>
+
+        <div class="devo-card devo-thought">
+          <p id="kids-story-text" style="font-size:16px;line-height:1.7;"></p>
+        </div>
+
+        <div class="devo-card devo-prompt-card">
+          <div class="label"><span lang-en>What This Teaches Us</span><span lang-es>Lo Que Esto Nos Enseña</span></div>
+          <p id="kids-story-lesson"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= DEVOTIONAL PAGE ================= -->
+  <div class="subpage" id="devo">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">←</button>
+      <h2><span lang-en>Daily Devotional</span><span lang-es>Devocional Diario</span></h2>
+    </div>
+    <div class="sub-body">
+
+      <div class="devo-series-label" id="devo-series-label">John</div>
+
+      <div class="devo-nav">
+        <button class="nav-arrow" id="devo-prev" onclick="changeDevoDay(-1)" aria-label="Previous day">←</button>
+        <div class="devo-day-label">
+          <span lang-en>Day </span><span lang-es>Día </span><span id="devo-day-num">1</span><span> / 30</span>
+        </div>
+        <button class="nav-arrow" id="devo-next" onclick="changeDevoDay(1)" aria-label="Next day">→</button>
+      </div>
+
+      <div class="restart-link" onclick="restartDevo()">
+        <span lang-en>Start over from Day 1</span><span lang-es>Comenzar de nuevo desde el Día 1</span>
+      </div>
+
+      <div class="devo-transition-note" id="devo-transition-note" style="display:none;"></div>
+
+      <div class="devo-card devo-reading">
+        <div class="label"><span lang-en>Today's Reading</span><span lang-es>Lectura de Hoy</span></div>
+        <div class="devo-ref" id="devo-ref">John 1:1, 14</div>
+        <p class="devo-verse" id="devo-verse"></p>
+      </div>
+
+      <div class="devo-card devo-thought">
+        <div class="label"><span lang-en>Thought for Today</span><span lang-es>Pensamiento de Hoy</span></div>
+        <p id="devo-body"></p>
+      </div>
+
+      <div class="devo-card devo-prompt-card">
+        <div class="label"><span lang-en>Prayer &amp; Action</span><span lang-es>Oración y Acción</span></div>
+        <p id="devo-prompt"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= PHOTOS PAGE ================= -->
+  <div class="subpage" id="photos">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">←</button>
+      <h2><span lang-en>Share Your Photos</span><span lang-es>Comparte tus Fotos</span></h2>
+    </div>
+    <div class="sub-body">
+      <div class="photo-drop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#157B7D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <p>
+          <span lang-en>Had a great time at the retreat? Share your photos and videos with us! Tap below to upload. We'll review everything before it goes into the public gallery.</span>
+          <span lang-es>¿Disfrutaste el retiro? ¡Comparte tus fotos y videos! Toca abajo para subirlos. Revisaremos todo antes de publicarlo en la galería.</span>
+        </p>
+        <a class="primary-btn" href="https://drive.google.com/drive/folders/1zXmOea4yZKN_ZyrfyCB1C-fRNOj4W7w3?usp=sharing" target="_blank" rel="noopener">
+          <span lang-en>Upload Photos &amp; Videos</span><span lang-es>Subir Fotos y Videos</span>
+        </a>
+      </div>
+
+      <div class="devo-card" style="margin-top:18px;">
+        <h3 style="margin-bottom:12px;"><span lang-en>Or Scan to Upload</span><span lang-es>O Escanea para Subir</span></h3>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0E5C5E&bgcolor=FFFFFF&data=https://drive.google.com/drive/folders/1zXmOea4yZKN_ZyrfyCB1C-fRNOj4W7w3?usp=sharing" alt="QR code to upload photos and videos" style="width:180px;height:180px;margin:0 auto 10px;display:block;border-radius:12px;">
+        <p style="font-size:13px;">
+          <span lang-en>Great for printing on a flyer at the retreat!</span>
+          <span lang-es>¡Perfecto para imprimir en un volante en el retiro!</span>
+        </p>
+      </div>
+
+      <div class="devo-card" style="margin-top:18px;">
+        <h3 style="margin-bottom:8px;"><span lang-en>Want to see the gallery?</span><span lang-es>¿Quieres ver la galería?</span></h3>
+        <p style="margin-bottom:14px;">
+          <span lang-en>Check out the Photo Gallery from the home screen to see approved photos and videos from past retreats.</span>
+          <span lang-es>Mira la Galería de Fotos en la pantalla principal para ver fotos y videos aprobados de retiros anteriores.</span>
+        </p>
+        <a class="primary-btn" href="https://drive.google.com/drive/folders/1DyDWR4TfMjiYRPyuXVSE0gx0C2rgVqMc?usp=sharing" target="_blank" rel="noopener">
+          <span lang-en>View Gallery</span><span lang-es>Ver Galería</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // 30-Day Devotional Series: The Book of John
+  const johnDevotionals = [
+    { day: 1, ref_en: "John 1:1, 14", ref_es: "Juan 1:1, 14", verse_en: "In the beginning was the Word, and the Word was with God, and the Word was God... And the Word was made flesh, and dwelt among us.", verse_es: "En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios... Y aquel Verbo fue hecho carne, y habitó entre nosotros.", body_en: "John doesn't start with a birth story. He starts before time even began. Jesus was there at the very start, and He chose to step into our world and live among us. You're not just reading about a good teacher. You're reading about God who came close on purpose, so He could be near you too.", body_es: "Juan no empieza con una historia de nacimiento. Empieza antes de que existiera el tiempo. Jesús ya estaba ahí desde el principio, y eligió venir a nuestro mundo para vivir entre nosotros. No estás leyendo sobre un buen maestro. Estás leyendo sobre Dios que se acercó a propósito, para estar cerca de ti también.", prompt_en: "Take a quiet moment today and thank God for choosing to come near.", prompt_es: "Toma un momento hoy para dar gracias a Dios por elegir acercarse." },
+    { day: 2, ref_en: "John 2:5", ref_es: "Juan 2:5", verse_en: "His mother saith unto the servants, Whatsoever he saith unto you, do it.", verse_es: "Su madre dijo a los que servían: Haced todo lo que os dijere.", body_en: "At the wedding in Cana, Mary gave simple advice that still works today. Do what He says. She didn't know exactly what Jesus would do, she just trusted Him. Sometimes faith isn't about understanding the whole plan. It's about taking the next small step He's asking of you.", body_es: "En la boda de Caná, María dio un consejo sencillo que todavía funciona hoy. Haz lo que Él diga. Ella no sabía exactamente qué haría Jesús, solo confió en Él. A veces la fe no se trata de entender todo el plan. Se trata de dar el siguiente paso pequeño que Él te está pidiendo.", prompt_en: "Is there a next step you've been putting off? Ask God for courage to take it.", prompt_es: "¿Hay un paso que has estado posponiendo? Pídele a Dios valor para darlo." },
+    { day: 3, ref_en: "John 3:16", ref_es: "Juan 3:16", verse_en: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.", verse_es: "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.", body_en: "This verse gets read so often that it's easy to skim past. But slow down on one word: whosoever. Not just the people who have it together. Not just the ones who never mess up. Whosoever includes you, exactly as you are today. That's the whole heart of the gospel in one sentence.", body_es: "Este versículo se lee tanto que es fácil pasarlo por alto. Pero detente en una palabra: todo aquel. No solo las personas que tienen todo resuelto. No solo los que nunca se equivocan. Todo aquel te incluye a ti, tal como eres hoy. Ese es el corazón del evangelio en una sola frase.", prompt_en: "Say this verse out loud today, and put your own name in place of \"whosoever.\"", prompt_es: "Di este versículo en voz alta hoy, y pon tu propio nombre en lugar de \"todo aquel.\"" },
+    { day: 4, ref_en: "John 4:14", ref_es: "Juan 4:14", verse_en: "But whosoever drinketh of the water that I shall give him shall never thirst.", verse_es: "Mas el que bebiere del agua que yo le daré, no tendrá sed jamás.", body_en: "Jesus told the woman at the well that He could offer something the world never could, water that actually satisfies for good. We all chase things hoping they'll finally fill us up. Jesus is saying there's a well that never runs dry, and it's found in Him.", body_es: "Jesús le dijo a la mujer en el pozo que Él podía ofrecer algo que el mundo nunca podría, agua que verdaderamente satisface para siempre. Todos perseguimos cosas esperando que finalmente nos llenen. Jesús está diciendo que hay un pozo que nunca se seca, y se encuentra en Él.", prompt_en: "What have you been trying to use to fill you up? Bring that honestly to God today.", prompt_es: "¿Qué has estado usando para tratar de llenarte? Lleva eso con honestidad a Dios hoy." },
+    { day: 5, ref_en: "John 5:8", ref_es: "Juan 5:8", verse_en: "Jesus saith unto him, Rise, take up thy bed, and walk.", verse_es: "Jesús le dijo: Levántate, toma tu lecho, y anda.", body_en: "This man had been sick for 38 years. Jesus didn't give him a long process or a list of steps. He just told him to rise and walk, and the man was healed right there. Some things you've been carrying for a long time are exactly what God wants to move on in a moment.", body_es: "Este hombre había estado enfermo por 38 años. Jesús no le dio un proceso largo ni una lista de pasos. Solo le dijo que se levantara y caminara, y el hombre fue sanado ahí mismo. Algunas cosas que has cargado por mucho tiempo son exactamente lo que Dios quiere mover en un momento.", prompt_en: "Ask God today to move in the area you've carried the longest.", prompt_es: "Pídele a Dios hoy que se mueva en el área que has cargado por más tiempo." },
+    { day: 6, ref_en: "John 6:35", ref_es: "Juan 6:35", verse_en: "And Jesus said unto them, I am the bread of life: he that cometh to me shall never hunger.", verse_es: "Y Jesús les dijo: Yo soy el pan de vida; el que a mí viene, nunca tendrá hambre.", body_en: "After feeding thousands with a few loaves, Jesus points to something bigger than physical food. He's saying He's enough, not just for a meal, but for the deep hunger we all carry. Whatever you're hungry for today, bring it to Him first.", body_es: "Después de alimentar a miles con unos pocos panes, Jesús señala algo más grande que la comida física. Está diciendo que Él es suficiente, no solo para una comida, sino para el hambre profunda que todos cargamos. Sea lo que sea que tengas hambre hoy, tráeselo a Él primero.", prompt_en: "Name one thing you're hungry for today, and ask Jesus to meet you there.", prompt_es: "Nombra algo que hoy tienes hambre de recibir, y pídele a Jesús que te encuentre ahí." },
+    { day: 7, ref_en: "John 7:38", ref_es: "Juan 7:38", verse_en: "He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of living water.", verse_es: "El que cree en mí, como dice la Escritura, de su interior correrán ríos de agua viva.", body_en: "This isn't a promise of a small trickle. Jesus says rivers will flow out of those who believe in Him. Not just enough for you to get by, but enough to overflow into other people's lives too. Faith was never meant to stay bottled up inside.", body_es: "Esta no es una promesa de un pequeño goteo. Jesús dice que ríos fluirán de los que creen en Él. No solo lo suficiente para que tú sobrevivas, sino suficiente para desbordarse hacia la vida de otras personas también. La fe nunca fue hecha para quedarse guardada por dentro.", prompt_en: "Think of one person you could pour into today, even in a small way.", prompt_es: "Piensa en una persona a quien podrías bendecir hoy, aunque sea de forma pequeña." },
+    { day: 8, ref_en: "John 8:12", ref_es: "Juan 8:12", verse_en: "Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life.", verse_es: "Otra vez Jesús les habló, diciendo: Yo soy la luz del mundo; el que me sigue, no andará en tinieblas, sino que tendrá la luz de la vida.", body_en: "Darkness doesn't need much to disappear. Even a small light changes a whole room. Jesus calling Himself the light means you're never asked to find your own way through hard seasons. You just follow the light that's already going ahead of you.", body_es: "La oscuridad no necesita mucho para desaparecer. Hasta una pequeña luz cambia todo un cuarto. Que Jesús se llame a sí mismo la luz significa que nunca se te pide encontrar tu propio camino en tiempos difíciles. Solo sigues la luz que ya va delante de ti.", prompt_en: "Where do you need light today? Ask Jesus to lead the way there.", prompt_es: "¿Dónde necesitas luz hoy? Pídele a Jesús que te guíe ahí." },
+    { day: 9, ref_en: "John 9:25", ref_es: "Juan 9:25", verse_en: "One thing I know, that, whereas I was blind, now I see.", verse_es: "Una cosa sé, que habiendo yo sido ciego, ahora veo.", body_en: "The man born blind didn't have all the answers when religious leaders questioned him. He just knew what Jesus had done for him personally. You don't need to have every theological question answered to share your own story. What God has done in your life is proof enough.", body_es: "El hombre que nació ciego no tenía todas las respuestas cuando los líderes religiosos lo cuestionaron. Solo sabía lo que Jesús había hecho por él personalmente. No necesitas tener cada pregunta teológica respondida para compartir tu propia historia. Lo que Dios ha hecho en tu vida es prueba suficiente.", prompt_en: "Think of one way God has changed you. Thank Him for it today.", prompt_es: "Piensa en una forma en que Dios te ha cambiado. Dale gracias por eso hoy." },
+    { day: 10, ref_en: "John 10:10", ref_es: "Juan 10:10", verse_en: "I am come that they might have life, and that they might have it more abundantly.", verse_es: "Yo he venido para que tengan vida, y para que la tengan en abundancia.", body_en: "Jesus didn't come just to get you into heaven someday. He came to give you a full, rich life right now too. If your days have felt more like surviving than living, this verse is a reminder that abundant life is exactly what He's offering.", body_es: "Jesús no vino solo para llevarte al cielo algún día. También vino a darte una vida plena y rica ahora mismo. Si tus días se han sentido más como sobrevivir que vivir, este versículo es un recordatorio de que la vida abundante es exactamente lo que Él está ofreciendo.", prompt_en: "Ask God to show you one area where He wants to bring more life today.", prompt_es: "Pídele a Dios que te muestre un área donde Él quiere traer más vida hoy." },
+    { day: 11, ref_en: "John 11:25", ref_es: "Juan 11:25", verse_en: "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live.", verse_es: "Le dijo Jesús: Yo soy la resurrección y la vida; el que cree en mí, aunque esté muerto, vivirá.", body_en: "Jesus said this right before He raised Lazarus from the dead. He wasn't just talking about the end of life. He was showing that nothing is too far gone for Him to restore. Whatever feels dead in your life right now isn't beyond His reach.", body_es: "Jesús dijo esto justo antes de resucitar a Lázaro de entre los muertos. No estaba hablando solo del final de la vida. Estaba mostrando que nada está demasiado perdido para que Él lo restaure. Lo que sea que se sienta muerto en tu vida ahora mismo no está fuera de su alcance.", prompt_en: "Bring the thing that feels most \"dead\" to you right now honestly to God in prayer.", prompt_es: "Lleva a Dios en oración, con honestidad, lo que se siente más \"muerto\" para ti ahora mismo." },
+    { day: 12, ref_en: "John 12:24", ref_es: "Juan 12:24", verse_en: "Verily, verily, I say unto you, Except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit.", verse_es: "De cierto, de cierto os digo, que si el grano de trigo no cae en la tierra y muere, queda solo; pero si muere, lleva mucho fruto.", body_en: "Growth often looks like loss before it looks like anything good. A seed has to be buried before it becomes something new. If a season of your life feels like an ending, it might actually be the start of something God is growing.", body_es: "El crecimiento a menudo se ve como pérdida antes de verse como algo bueno. Una semilla tiene que ser enterrada antes de convertirse en algo nuevo. Si una temporada de tu vida se siente como un final, puede que en realidad sea el comienzo de algo que Dios está haciendo crecer.", prompt_en: "Trust God today with a season that feels like an ending.", prompt_es: "Confía en Dios hoy con una temporada que se siente como un final." },
+    { day: 13, ref_en: "John 13:34", ref_es: "Juan 13:34", verse_en: "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.", verse_es: "Un mandamiento nuevo os doy: Que os améis unos a otros; como yo os he amado, que también os améis unos a otros.", body_en: "This came right after Jesus washed His disciples' feet, including the one who would betray Him. His love wasn't about who deserved it. It was simply given. That's the standard He's calling us to, not loving people because they earned it, but because He first loved us that way.", body_es: "Esto vino justo después de que Jesús lavara los pies de sus discípulos, incluyendo al que lo traicionaría. Su amor no se trataba de quién lo merecía. Simplemente fue dado. Ese es el estándar al que nos llama, no amar a las personas porque lo ganaron, sino porque Él nos amó así primero.", prompt_en: "Choose one person today to love well, even if it's hard.", prompt_es: "Elige a una persona hoy para amar bien, aunque sea difícil." },
+    { day: 14, ref_en: "John 14:27", ref_es: "Juan 14:27", verse_en: "Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid.", verse_es: "La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón, ni tenga miedo.", body_en: "The peace Jesus offers isn't the same as the world's version, which depends on everything going right. His peace stays steady even in the middle of hard circumstances. You don't have to wait for things to calm down to feel that peace. It's already offered to you now.", body_es: "La paz que Jesús ofrece no es igual a la versión del mundo, que depende de que todo salga bien. Su paz se mantiene firme incluso en medio de circunstancias difíciles. No tienes que esperar a que las cosas se calmen para sentir esa paz. Ya se te ofrece ahora.", prompt_en: "Ask Jesus for His peace specifically over whatever is troubling you today.", prompt_es: "Pídele a Jesús su paz específicamente sobre lo que te está preocupando hoy." },
+    { day: 15, ref_en: "John 15:5", ref_es: "Juan 15:5", verse_en: "I am the vine, ye are the branches: He that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing.", verse_es: "Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, este lleva mucho fruto; porque separados de mí nada podéis hacer.", body_en: "A branch doesn't strain to grow fruit. It just stays connected to the vine, and the fruit happens naturally. So much of the Christian life isn't about working harder. It's about staying close to Jesus and letting Him do what only He can do through you.", body_es: "Una rama no se esfuerza para producir fruto. Simplemente permanece conectada a la vid, y el fruto sucede de forma natural. Gran parte de la vida cristiana no se trata de esforzarse más. Se trata de mantenerse cerca de Jesús y dejar que Él haga lo que solo Él puede hacer a través de ti.", prompt_en: "Spend a few extra minutes today just staying near God, no agenda needed.", prompt_es: "Pasa unos minutos extra hoy simplemente cerca de Dios, sin necesidad de una agenda." },
+    { day: 16, ref_en: "John 16:33", ref_es: "Juan 16:33", verse_en: "These things I have spoken unto you, that in me ye might have peace. In the world ye shall have tribulation: but be of good cheer; I have overcome the world.", verse_es: "Estas cosas os he hablado para que en mí tengáis paz. En el mundo tendréis aflicción; pero confiad, yo he vencido al mundo.", body_en: "Jesus never promised an easy life, He promised something better. He already overcame everything the world can throw at you. Hard days don't mean He's lost control. They mean you're living in a world He's already claimed victory over.", body_es: "Jesús nunca prometió una vida fácil, prometió algo mejor. Él ya venció todo lo que el mundo pueda lanzarte. Los días difíciles no significan que Él perdió el control. Significan que estás viviendo en un mundo sobre el cual Él ya ganó la victoria.", prompt_en: "Remind yourself today that hard doesn't mean hopeless.", prompt_es: "Recuérdate hoy que difícil no significa sin esperanza." },
+    { day: 17, ref_en: "John 17:20-21", ref_es: "Juan 17:20-21", verse_en: "Neither pray I for these alone, but for them also which shall believe on me through their word; That they all may be one.", verse_es: "Mas no ruego solamente por estos, sino también por los que han de creer en mí por la palabra de ellos, para que todos sean uno.", body_en: "Right before His arrest, Jesus prayed for you specifically, even though you hadn't been born yet. He prayed for unity among believers across every generation. You are part of an answer to a prayer Jesus prayed thousands of years ago.", body_es: "Justo antes de su arresto, Jesús oró por ti específicamente, aunque todavía no habías nacido. Oró por unidad entre los creyentes a través de cada generación. Tú eres parte de la respuesta a una oración que Jesús hizo hace miles de años.", prompt_en: "Pray today for unity within your own church or ministry family.", prompt_es: "Ora hoy por la unidad dentro de tu propia iglesia o familia de ministerio." },
+    { day: 18, ref_en: "John 18:37", ref_es: "Juan 18:37", verse_en: "To this end was I born, and for this cause came I into the world, that I should bear witness unto the truth. Every one that is of the truth heareth my voice.", verse_es: "Yo para esto he nacido, y para esto he venido al mundo, para dar testimonio a la verdad. Todo aquel que es de la verdad, oye mi voz.", body_en: "Standing before Pilate, Jesus stayed calm and clear about who He was. He didn't need to defend Himself loudly. Truth doesn't need to shout to be true. You don't have to argue your faith into existence, just live it out steadily.", body_es: "De pie ante Pilato, Jesús se mantuvo tranquilo y claro sobre quién era. No necesitó defenderse a gritos. La verdad no necesita gritar para ser verdad. No tienes que discutir tu fe para que exista, solo vívela de forma constante.", prompt_en: "Ask God for a calm, steady confidence in your faith today.", prompt_es: "Pídele a Dios una confianza tranquila y constante en tu fe hoy." },
+    { day: 19, ref_en: "John 19:30", ref_es: "Juan 19:30", verse_en: "When Jesus therefore had received the vinegar, he said, It is finished: and he bowed his head, and gave up the ghost.", verse_es: "Cuando Jesús hubo tomado el vinagre, dijo: Consumado es. Y habiendo inclinado la cabeza, entregó el espíritu.", body_en: "Those three words changed everything. It is finished wasn't a cry of defeat, it was a declaration of completion. The work needed to make you right with God was done, fully and for good. Nothing you do adds to what He already finished.", body_es: "Esas tres palabras lo cambiaron todo. Consumado es no fue un grito de derrota, fue una declaración de que se había completado. La obra necesaria para hacerte bien con Dios fue hecha, completa y para siempre. Nada de lo que hagas añade a lo que Él ya terminó.", prompt_en: "Rest today in the fact that His work is already finished, you don't have to earn it.", prompt_es: "Descansa hoy en el hecho de que su obra ya está terminada, no tienes que ganártela." },
+    { day: 20, ref_en: "John 20:29", ref_es: "Juan 20:29", verse_en: "Jesus saith unto him, Thomas, because thou hast seen me, thou hast believed: blessed are they that have not seen, and yet have believed.", verse_es: "Jesús le dijo: Porque me has visto, Tomás, creíste; bienaventurados los que no vieron, y creyeron.", body_en: "Thomas needed to see to believe. Jesus gently gave him that, but also pointed forward to you. Every person who believes without physical proof, trusting God's word and His faithfulness, carries a special kind of blessing.", body_es: "Tomás necesitaba ver para creer. Jesús gentilmente se lo dio, pero también miró hacia ti. Toda persona que cree sin prueba física, confiando en la palabra de Dios y su fidelidad, lleva un tipo especial de bendición.", prompt_en: "Thank God today for the faith He's given you, even without seeing everything.", prompt_es: "Dale gracias a Dios hoy por la fe que te ha dado, aun sin ver todo." },
+    { day: 21, ref_en: "John 21:17", ref_es: "Juan 21:17", verse_en: "He saith unto him the third time, Simon, son of Jonas, lovest thou me?... Lord, thou knowest all things; thou knowest that I love thee. Jesus saith unto him, Feed my sheep.", verse_es: "Le dijo la tercera vez: Simón, hijo de Jonás, ¿me amas?... Señor, tú lo sabes todo; tú sabes que te amo. Jesús le dijo: Apacienta mis ovejas.", body_en: "Peter had denied Jesus three times. Here, Jesus asks him three times if he loves Him, gently restoring him rather than shaming him. Failure was never the end of Peter's story. It's not the end of yours either. God restores, and then He still gives you work to do.", body_es: "Pedro había negado a Jesús tres veces. Aquí, Jesús le pregunta tres veces si lo ama, restaurándolo con ternura en lugar de avergonzarlo. El fracaso nunca fue el final de la historia de Pedro. Tampoco es el final de la tuya. Dios restaura, y luego todavía te da trabajo que hacer.", prompt_en: "If you've been carrying shame over a past failure, ask God for the same restoration He gave Peter.", prompt_es: "Si has cargado vergüenza por un fracaso pasado, pídele a Dios la misma restauración que le dio a Pedro." },
+    { day: 22, ref_en: "John 1:29", ref_es: "Juan 1:29", verse_en: "The next day John seeth Jesus coming unto him, and saith, Behold the Lamb of God, which taketh away the sin of the world.", verse_es: "El siguiente día vio Juan a Jesús que venía a él, y dijo: He aquí el Cordero de Dios, que quita el pecado del mundo.", body_en: "John the Baptist could have pointed to himself. Instead, he pointed straight to Jesus. That's a good pattern for us too. Our lives are meant to point toward Him, not toward ourselves.", body_es: "Juan el Bautista pudo haberse señalado a sí mismo. En cambio, señaló directamente a Jesús. Ese es un buen ejemplo para nosotros también. Nuestras vidas están hechas para señalar hacia Él, no hacia nosotros mismos.", prompt_en: "Look for one chance today to point someone else toward Jesus.", prompt_es: "Busca hoy una oportunidad para señalar a alguien más hacia Jesús." },
+    { day: 23, ref_en: "John 3:30", ref_es: "Juan 3:30", verse_en: "He must increase, but I must decrease.", verse_es: "Es necesario que él crezca, pero que yo mengüe.", body_en: "John the Baptist said this as his own ministry was fading while Jesus's was growing. There was no bitterness in it, just peace. A humble heart isn't about thinking less of yourself, it's about thinking of yourself less, and pointing more toward Him.", body_es: "Juan el Bautista dijo esto mientras su propio ministerio se desvanecía y el de Jesús crecía. No había amargura en eso, solo paz. Un corazón humilde no se trata de pensar menos de ti mismo, se trata de pensar menos en ti mismo, y más en señalar hacia Él.", prompt_en: "Ask God today to help you celebrate someone else's growth without comparison.", prompt_es: "Pídele a Dios hoy que te ayude a celebrar el crecimiento de otra persona sin comparación." },
+    { day: 24, ref_en: "John 6:37", ref_es: "Juan 6:37", verse_en: "All that the Father giveth me shall come to me; and him that cometh to me I will in no wise cast out.", verse_es: "Todo lo que el Padre me da, vendrá a mí; y al que a mí viene, no le echo fuera.", body_en: "This is one of the most comforting promises in Scripture. No matter your past, your doubts, or how long you've been away, Jesus says He will never turn you away when you come to Him. That door stays open.", body_es: "Esta es una de las promesas más reconfortantes en las Escrituras. Sin importar tu pasado, tus dudas, o cuánto tiempo hayas estado alejado, Jesús dice que nunca te rechazará cuando vengas a Él. Esa puerta se mantiene abierta.", prompt_en: "If you've been holding back from God, let today be the day you come close again.", prompt_es: "Si te has mantenido alejado de Dios, deja que hoy sea el día en que te acerques de nuevo." },
+    { day: 25, ref_en: "John 8:32", ref_es: "Juan 8:32", verse_en: "And ye shall know the truth, and the truth shall make you free.", verse_es: "Y conoceréis la verdad, y la verdad os hará libres.", body_en: "Freedom in Scripture isn't about having no rules. It's about knowing what's true, especially true about who God is and who you are because of Him. Lies keep people trapped. Truth is what sets them loose.", body_es: "La libertad en las Escrituras no se trata de no tener reglas. Se trata de saber lo que es verdad, especialmente lo que es verdad sobre quién es Dios y quién eres tú por causa de Él. Las mentiras mantienen a las personas atrapadas. La verdad es lo que las libera.", prompt_en: "Ask God to show you one lie you've believed, and replace it with His truth today.", prompt_es: "Pídele a Dios que te muestre una mentira que has creído, y reemplázala con su verdad hoy." },
+    { day: 26, ref_en: "John 10:27", ref_es: "Juan 10:27", verse_en: "My sheep hear my voice, and I know them, and they follow me.", verse_es: "Mis ovejas oyen mi voz, y yo las conozco, y me siguen.", body_en: "Sheep learn to recognize their shepherd's voice above every other sound. The more time you spend with Jesus, the easier it gets to recognize His voice too, in Scripture, in prayer, in quiet moments. Familiarity with Him grows with time spent together.", body_es: "Las ovejas aprenden a reconocer la voz de su pastor por encima de cualquier otro sonido. Entre más tiempo pases con Jesús, más fácil se vuelve reconocer su voz también, en las Escrituras, en oración, en momentos de silencio. La familiaridad con Él crece con el tiempo que pasan juntos.", prompt_en: "Spend a few quiet minutes today just listening, without asking for anything.", prompt_es: "Pasa unos minutos tranquilos hoy solo escuchando, sin pedir nada." },
+    { day: 27, ref_en: "John 13:14-15", ref_es: "Juan 13:14-15", verse_en: "If I then, your Lord and Master, have washed your feet; ye also ought to wash one another's feet. For I have given you an example, that ye should do as I have done to you.", verse_es: "Pues si yo, el Señor y el Maestro, he lavado vuestros pies, vosotros también debéis lavaros los pies los unos a los otros. Porque ejemplo os he dado, para que como yo os he hecho, vosotros también hagáis.", body_en: "Jesus, the one with the most authority in the room, knelt down and did the lowest job available. Serving others isn't beneath anyone who follows Him. It's exactly the example He set for us to follow.", body_es: "Jesús, quien tenía la mayor autoridad en el cuarto, se arrodilló e hizo el trabajo más humilde disponible. Servir a otros no está por debajo de nadie que lo sigue. Es exactamente el ejemplo que Él nos dejó para seguir.", prompt_en: "Find one small, humble way to serve someone today.", prompt_es: "Encuentra una forma pequeña y humilde de servir a alguien hoy." },
+    { day: 28, ref_en: "John 14:6", ref_es: "Juan 14:6", verse_en: "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me.", verse_es: "Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre, sino por mí.", body_en: "This verse settles a question a lot of people wrestle with. How do I get to God? Jesus says plainly, through Him. Not through perfect performance or figuring everything out. Just through Him.", body_es: "Este versículo resuelve una pregunta con la que mucha gente lucha. ¿Cómo llego a Dios? Jesús dice claramente, a través de Él. No a través de un desempeño perfecto o de entenderlo todo. Solo a través de Él.", prompt_en: "Thank Jesus today for being the way, so you don't have to find your own.", prompt_es: "Dale gracias a Jesús hoy por ser el camino, para que no tengas que encontrar el tuyo propio." },
+    { day: 29, ref_en: "John 16:24", ref_es: "Juan 16:24", verse_en: "Hitherto have ye asked nothing in my name: ask, and ye shall receive, that your joy may be full.", verse_es: "Hasta ahora nada habéis pedido en mi nombre; pedid, y recibiréis, para que vuestro gozo sea cumplido.", body_en: "Jesus invites us to actually ask, not just hope quietly or wonder if God is listening. Prayer isn't a formality. It's an open invitation to bring real requests to a Father who wants your joy to be complete.", body_es: "Jesús nos invita a realmente pedir, no solo esperar en silencio o preguntarnos si Dios está escuchando. La oración no es una formalidad. Es una invitación abierta a traer peticiones reales a un Padre que quiere que tu gozo sea completo.", prompt_en: "Ask God for something specific today, out loud if you can.", prompt_es: "Pídele a Dios algo específico hoy, en voz alta si puedes." },
+    { day: 30, ref_en: "John 20:21", ref_es: "Juan 20:21", verse_en: "Then said Jesus to them again, Peace be unto you: as my Father hath sent me, even so send I you.", verse_es: "Entonces Jesús les dijo otra vez: Paz a vosotros. Como me envió el Padre, así también yo os envío.", body_en: "As this journey through John comes to a close, Jesus sends His followers out, just as He was sent. You've spent 30 days walking through His story. Now you're invited to carry it forward into your own everyday life, wherever you go next.", body_es: "Al terminar este recorrido por Juan, Jesús envía a sus seguidores, tal como Él fue enviado. Has pasado 30 días caminando a través de su historia. Ahora estás invitado a llevarla adelante en tu propia vida diaria, a donde sea que vayas después.", prompt_en: "Ask God today where He's sending you next, and thank Him for these 30 days.", prompt_es: "Pregúntale a Dios hoy a dónde te está enviando después, y dale gracias por estos 30 días." }
+  ];
+
+  const philippiansDevotionals = [
+  { day: 1, ref_en: "Philippians 1:2-3", ref_es: "Filipenses 1:2-3", verse_en: "Grace be unto you, and peace, from God our Father, and from the Lord Jesus Christ. I thank my God upon every remembrance of you.", verse_es: "Gracia y paz a vosotros, de Dios nuestro Padre y del Señor Jesucristo. Doy gracias a mi Dios cada vez que me acuerdo de vosotros.", body_en: "Paul wrote this letter from prison, yet he opens with grace, peace, and thankfulness. His circumstances were hard, but his heart was full of gratitude for the people he loved. That's worth noticing. Gratitude isn't about pretending things are easy. It's about choosing to see the good even in hard seasons.", body_es: "Pablo escribió esta carta desde la cárcel, y aun así comienza con gracia, paz y gratitud. Sus circunstancias eran difíciles, pero su corazón estaba lleno de agradecimiento por las personas que amaba. Vale la pena notar esto. La gratitud no se trata de fingir que todo es fácil. Se trata de elegir ver lo bueno incluso en las temporadas difíciles.", prompt_en: "Think of one person you're grateful for today, and tell them so.", prompt_es: "Piensa en una persona por la que estás agradecido hoy, y díselo." },
+  { day: 2, ref_en: "Philippians 1:6", ref_es: "Filipenses 1:6", verse_en: "Being confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ.", verse_es: "Estando persuadido de esto, que el que comenzó en vosotros la buena obra, la perfeccionará hasta el día de Jesucristo.", body_en: "You are not finished yet, and that's okay. God isn't done working in you. This verse isn't a promise that you'll feel complete tomorrow. It's a promise that He's committed to the process, start to finish, even on the days it doesn't feel like progress.", body_es: "Todavía no estás terminado, y eso está bien. Dios no ha terminado de trabajar en ti. Este versículo no es una promesa de que te sentirás completo mañana. Es una promesa de que Él está comprometido con el proceso, de principio a fin, incluso en los días que no se sienten como progreso.", prompt_en: "Thank God today for the work He's still doing in you, even the parts still unfinished.", prompt_es: "Dale gracias a Dios hoy por la obra que todavía está haciendo en ti, incluso las partes aún sin terminar." },
+  { day: 3, ref_en: "Philippians 1:9-10", ref_es: "Filipenses 1:9-10", verse_en: "And this I pray, that your love may abound yet more and more in knowledge and in all judgment; that ye may approve things that are excellent.", verse_es: "Y esto pido en oración, que vuestro amor abunde aún más y más en ciencia y en todo conocimiento, para que aprobéis lo mejor.", body_en: "Paul prays that love would grow alongside wisdom, not instead of it. Love without discernment can lead us astray, and discernment without love can turn cold. God wants both growing in us together, so we can tell what's excellent, not just what's acceptable.", body_es: "Pablo ora para que el amor crezca junto con la sabiduría, no en lugar de ella. El amor sin discernimiento puede desviarnos, y el discernimiento sin amor puede volverse frío. Dios quiere que ambos crezcan en nosotros juntos, para que podamos distinguir lo que es excelente, no solo lo que es aceptable.", prompt_en: "Ask God today to grow both your love and your wisdom together.", prompt_es: "Pídele a Dios hoy que haga crecer tu amor y tu sabiduría juntos." },
+  { day: 4, ref_en: "Philippians 1:21", ref_es: "Filipenses 1:21", verse_en: "For to me to live is Christ, and to die is gain.", verse_es: "Porque para mí el vivir es Cristo, y el morir es ganancia.", body_en: "This is one of the boldest statements in the whole letter. Paul had found something so solid that even death didn't scare him. Whatever this life holds, good days and hard ones, is not the final word. There's something more secure underneath it all.", body_es: "Esta es una de las declaraciones más audaces de toda la carta. Pablo había encontrado algo tan sólido que ni siquiera la muerte lo asustaba. Lo que sea que esta vida traiga, días buenos y difíciles, no es la última palabra. Hay algo más seguro debajo de todo esto.", prompt_en: "Reflect today on what truly anchors your life. Bring that honestly to God.", prompt_es: "Reflexiona hoy sobre lo que verdaderamente ancla tu vida. Llévalo con honestidad a Dios." },
+  { day: 5, ref_en: "Philippians 1:29", ref_es: "Filipenses 1:29", verse_en: "For unto you it is given in the behalf of Christ, not only to believe on him, but also to suffer for his sake.", verse_es: "Porque a vosotros os es concedido a causa de Cristo, no solo que creáis en él, sino también que padezcáis por él.", body_en: "This is a hard verse, but an honest one. Following Jesus was never promised to be easy every day. Sometimes faith costs something. But Paul frames even suffering as something given, not just endured, meaning God can use even hard seasons for real purpose.", body_es: "Este es un versículo difícil, pero honesto. Seguir a Jesús nunca fue prometido como algo fácil todos los días. A veces la fe cuesta algo. Pero Pablo describe incluso el sufrimiento como algo dado, no solo soportado, lo que significa que Dios puede usar incluso las temporadas difíciles con un propósito real.", prompt_en: "If you're in a hard season, ask God to show you His purpose within it.", prompt_es: "Si estás en una temporada difícil, pídele a Dios que te muestre su propósito dentro de ella." },
+  { day: 6, ref_en: "Philippians 2:3-4", ref_es: "Filipenses 2:3-4", verse_en: "Let nothing be done through strife or vainglory; but in lowliness of mind let each esteem other better than themselves. Look not every man on his own things, but every man also on the things of others.", verse_es: "Nada hagáis por contienda o por vanagloria; antes bien con humildad, estimando cada uno a los demás como superiores a él mismo. No mirando cada uno por lo suyo propio, sino cada cual también por lo de los otros.", body_en: "This is a tough, countercultural instruction. Put others first, genuinely, not as a performance. Not because you're less valuable, but because real love looks outward, not just inward.", body_es: "Esta es una instrucción difícil y contracultural. Pon a otros primero, genuinamente, no como una actuación. No porque valgas menos, sino porque el amor verdadero mira hacia afuera, no solo hacia adentro.", prompt_en: "Look for one practical way to put someone else's needs ahead of your own today.", prompt_es: "Busca una forma práctica de poner las necesidades de otra persona antes que las tuyas hoy." },
+  { day: 7, ref_en: "Philippians 2:5-7", ref_es: "Filipenses 2:5-7", verse_en: "Let this mind be in you, which was also in Christ Jesus: Who, being in the form of God... made himself of no reputation, and took upon him the form of a servant.", verse_es: "Haya, pues, en vosotros este sentir que hubo también en Cristo Jesús, el cual, siendo en forma de Dios... se despojó a sí mismo, tomando forma de siervo.", body_en: "Jesus had every right to hold onto His position, yet He let it go to serve. This is the deepest kind of humility, not thinking less of yourself, but being willing to set your rights aside for someone else's good.", body_es: "Jesús tenía todo el derecho de aferrarse a su posición, sin embargo la dejó ir para servir. Esta es la humildad más profunda, no pensar menos de ti mismo, sino estar dispuesto a dejar de lado tus derechos por el bien de otra persona.", prompt_en: "Ask God today for a servant's heart in one specific relationship.", prompt_es: "Pídele a Dios hoy un corazón de siervo en una relación específica." },
+  { day: 8, ref_en: "Philippians 2:9-10", ref_es: "Filipenses 2:9-10", verse_en: "Wherefore God also hath highly exalted him, and given him a name which is above every name: That at the name of Jesus every knee should bow.", verse_es: "Por lo cual Dios también le exaltó hasta lo sumo, y le dio un nombre que es sobre todo nombre, para que en el nombre de Jesús se doble toda rodilla.", body_en: "Because Jesus humbled Himself, God exalted Him above everything. This is the pattern of the gospel: the way down is often the way up. Humility isn't weakness, it's the road to the highest honor.", body_es: "Porque Jesús se humilló a sí mismo, Dios lo exaltó por encima de todo. Este es el patrón del evangelio: el camino hacia abajo a menudo es el camino hacia arriba. La humildad no es debilidad, es el camino hacia el honor más alto.", prompt_en: "Take a moment today to simply worship, no requests, just honoring who Jesus is.", prompt_es: "Toma un momento hoy para simplemente adorar, sin peticiones, solo honrando quién es Jesús." },
+  { day: 9, ref_en: "Philippians 2:13", ref_es: "Filipenses 2:13", verse_en: "For it is God which worketh in you both to will and to do of his good pleasure.", verse_es: "Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad.", body_en: "Even your desire to grow, to change, to do better, is something God is stirring in you. You're not doing this alone, and you never were. He's working underneath the surface, even on the days you don't feel motivated.", body_es: "Incluso tu deseo de crecer, de cambiar, de hacerlo mejor, es algo que Dios está despertando en ti. No estás haciendo esto solo, y nunca lo estuviste. Él está trabajando debajo de la superficie, incluso en los días en que no te sientes motivado.", prompt_en: "Thank God today for placing good desires in your heart, even ones you're still working toward.", prompt_es: "Dale gracias a Dios hoy por poner buenos deseos en tu corazón, incluso los que todavía estás trabajando por alcanzar." },
+  { day: 10, ref_en: "Philippians 2:14-15", ref_es: "Filipenses 2:14-15", verse_en: "Do all things without murmurings and disputings: That ye may be blameless and harmless, the sons of God, without rebuke, in the midst of a crooked and perverse nation, among whom ye shine as lights in the world.", verse_es: "Haced todo sin murmuraciones y contiendas, para que seáis irreprensibles y sencillos, hijos de Dios sin mancha en medio de una generación maligna y perversa, en medio de la cual resplandecéis como luminares en el mundo.", body_en: "Complaining is easy. A grateful, steady attitude in a complaining world actually stands out. You don't need to be perfect to shine, you just need to be different from the noise around you.", body_es: "Quejarse es fácil. Una actitud agradecida y constante en un mundo que se queja realmente se destaca. No necesitas ser perfecto para brillar, solo necesitas ser diferente del ruido que te rodea.", prompt_en: "Notice today when you're tempted to complain, and choose gratitude instead, even once.", prompt_es: "Nota hoy cuando sientas la tentación de quejarte, y elige la gratitud en su lugar, aunque sea una vez." },
+  { day: 11, ref_en: "Philippians 3:7-8", ref_es: "Filipenses 3:7-8", verse_en: "But what things were gain to me, those I counted loss for Christ... that I may win Christ.", verse_es: "Pero cuantas cosas eran para mí ganancia, las he estimado como pérdida por amor de Cristo... a fin de ganar a Cristo.", body_en: "Paul had impressive credentials before he met Jesus, and he says he counted all of it as loss compared to knowing Christ. Whatever you've achieved or are still chasing, none of it compares to actually knowing Him.", body_es: "Pablo tenía credenciales impresionantes antes de conocer a Jesús, y dice que consideró todo eso como pérdida comparado con conocer a Cristo. Lo que sea que hayas logrado o todavía estés persiguiendo, nada se compara con realmente conocerlo a Él.", prompt_en: "Ask God today to help you value knowing Him above your own accomplishments.", prompt_es: "Pídele a Dios hoy que te ayude a valorar conocerlo a Él por encima de tus propios logros." },
+  { day: 12, ref_en: "Philippians 3:12", ref_es: "Filipenses 3:12", verse_en: "Not as though I had already attained, either were already perfect: but I follow after, if that I may apprehend that for which also I am apprehended of Christ Jesus.", verse_es: "No que lo haya alcanzado ya, ni que ya sea perfecto; sino que prosigo, por ver si logro asir aquello para lo cual fui también asido por Cristo Jesús.", body_en: "Even Paul, one of the most faithful men in Scripture, admits he hadn't arrived yet. He was still pressing forward. Growth is a lifelong process, not a box to check. You're allowed to still be growing.", body_es: "Incluso Pablo, uno de los hombres más fieles de las Escrituras, admite que aún no había llegado. Todavía seguía adelante. El crecimiento es un proceso de toda la vida, no algo que se marca como terminado. Se te permite seguir creciendo.", prompt_en: "Give yourself grace today for still being a work in progress.", prompt_es: "Date gracia hoy por seguir siendo una obra en progreso." },
+  { day: 13, ref_en: "Philippians 3:13-14", ref_es: "Filipenses 3:13-14", verse_en: "This one thing I do, forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark.", verse_es: "Una cosa hago: olvidando ciertamente lo que queda atrás, y extendiéndome a lo que está delante, prosigo a la meta.", body_en: "You can't move forward while gripping tightly to what's behind you. Paul chose to let go of both his failures and his past successes to focus on what was ahead. Sometimes the most freeing thing is simply releasing your grip on yesterday.", body_es: "No puedes avanzar mientras te aferras con fuerza a lo que quedó atrás. Pablo eligió soltar tanto sus fracasos como sus éxitos pasados para enfocarse en lo que tenía por delante. A veces lo más liberador es simplemente soltar tu agarre del ayer.", prompt_en: "Is there something from your past you're still gripping? Ask God to help you release it today.", prompt_es: "¿Hay algo de tu pasado que todavía estás sosteniendo con fuerza? Pídele a Dios que te ayude a soltarlo hoy." },
+  { day: 14, ref_en: "Philippians 3:20", ref_es: "Filipenses 3:20", verse_en: "For our conversation is in heaven; from whence also we look for the Saviour, the Lord Jesus Christ.", verse_es: "Mas nuestra ciudadanía está en los cielos, de donde también esperamos al Salvador, al Señor Jesucristo.", body_en: "Wherever you live, whatever's happening around you, this isn't your permanent home. You belong to something bigger. That truth can bring real peace when the world around you feels unstable.", body_es: "Donde sea que vivas, sea lo que sea que esté pasando a tu alrededor, este no es tu hogar permanente. Perteneces a algo más grande. Esa verdad puede traer verdadera paz cuando el mundo a tu alrededor se siente inestable.", prompt_en: "Rest today in the truth that your true home is secure, no matter what's happening here.", prompt_es: "Descansa hoy en la verdad de que tu verdadero hogar está seguro, sin importar lo que esté pasando aquí." },
+  { day: 15, ref_en: "Philippians 4:4", ref_es: "Filipenses 4:4", verse_en: "Rejoice in the Lord alway: and again I say, Rejoice.", verse_es: "Regocijaos en el Señor siempre. Otra vez digo: ¡Regocijaos!", body_en: "Paul says this twice, on purpose, from prison. This isn't shallow positivity. It's a deep, chosen joy that doesn't depend on circumstances being good. You can rejoice in the Lord even when the day itself gives you little to celebrate.", body_es: "Pablo dice esto dos veces, a propósito, desde la cárcel. Esto no es positividad superficial. Es un gozo profundo y elegido que no depende de que las circunstancias sean buenas. Puedes regocijarte en el Señor incluso cuando el día en sí te da poco que celebrar.", prompt_en: "Choose one small thing to rejoice in today, regardless of how the day is going.", prompt_es: "Elige una pequeña cosa para regocijarte hoy, sin importar cómo esté yendo el día." },
+  { day: 16, ref_en: "Philippians 4:5", ref_es: "Filipenses 4:5", verse_en: "Let your moderation be known unto all men. The Lord is at hand.", verse_es: "Vuestra gentileza sea conocida de todos los hombres. El Señor está cerca.", body_en: "Gentleness is a quiet strength. It's easy to be sharp or defensive, but Paul calls us to something softer, a gentleness people can actually notice. And the reason given is simple: the Lord is near. You don't have to fight every battle yourself.", body_es: "La gentileza es una fuerza silenciosa. Es fácil ser cortante o defensivo, pero Pablo nos llama a algo más suave, una gentileza que la gente pueda notar de verdad. Y la razón que da es simple: el Señor está cerca. No tienes que pelear cada batalla tú solo.", prompt_en: "Choose gentleness in one interaction today, even if it's hard.", prompt_es: "Elige la gentileza en una interacción hoy, aunque sea difícil." },
+  { day: 17, ref_en: "Philippians 4:6", ref_es: "Filipenses 4:6", verse_en: "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.", verse_es: "Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.", body_en: "This is a direct invitation to bring literally everything to God, not just the big things. Worry and prayer can't fully coexist in the same moment. When one grows, the other tends to shrink.", body_es: "Esta es una invitación directa a llevarle a Dios literalmente todo, no solo las cosas grandes. La preocupación y la oración no pueden coexistir completamente en el mismo momento. Cuando una crece, la otra tiende a disminuir.", prompt_en: "Name one specific worry and turn it into a specific prayer right now.", prompt_es: "Nombra una preocupación específica y conviértela en una oración específica ahora mismo." },
+  { day: 18, ref_en: "Philippians 4:7", ref_es: "Filipenses 4:7", verse_en: "And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus.", verse_es: "Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.", body_en: "This peace doesn't always make logical sense. It doesn't require your circumstances to add up. It's a peace that stands guard over your heart and mind, even when the situation itself hasn't been resolved yet.", body_es: "Esta paz no siempre tiene sentido lógico. No requiere que tus circunstancias tengan sentido. Es una paz que hace guardia sobre tu corazón y tu mente, incluso cuando la situación en sí todavía no se ha resuelto.", prompt_en: "Ask God for His peace today, specifically over something unresolved.", prompt_es: "Pídele a Dios su paz hoy, específicamente sobre algo sin resolver." },
+  { day: 19, ref_en: "Philippians 4:8", ref_es: "Filipenses 4:8", verse_en: "Whatsoever things are true, whatsoever things are honest, whatsoever things are just, whatsoever things are pure... think on these things.", verse_es: "Todo lo que es verdadero, todo lo honesto, todo lo justo, todo lo puro... en esto pensad.", body_en: "What you dwell on shapes you. Paul gives a clear filter for our thoughts, true, honest, pure, lovely. This isn't about ignoring hard realities, it's about choosing where your mind lingers when you have the choice.", body_es: "Aquello en lo que te enfocas te va formando. Pablo da un filtro claro para nuestros pensamientos: verdadero, honesto, puro, amable. Esto no se trata de ignorar realidades difíciles, se trata de elegir dónde se detiene tu mente cuando tienes la opción.", prompt_en: "Notice your thoughts today, and gently redirect toward what's good when you can.", prompt_es: "Nota tus pensamientos hoy, y redirígelos con suavidad hacia lo bueno cuando puedas." },
+  { day: 20, ref_en: "Philippians 4:9", ref_es: "Filipenses 4:9", verse_en: "Those things, which ye have both learned, and received, and heard, and seen in me, do: and the God of peace shall be with you.", verse_es: "Lo que aprendisteis y recibisteis y oísteis y visteis en mí, esto haced; y el Dios de paz estará con vosotros.", body_en: "Paul doesn't just teach, he invites people to watch how he actually lives. Faith isn't only what we say we believe, it's what we practice. Someone is likely watching how you live too, even in small ways.", body_es: "Pablo no solo enseña, invita a la gente a ver cómo vive de verdad. La fe no es solo lo que decimos creer, es lo que practicamos. Es probable que alguien también esté observando cómo vives, incluso en cosas pequeñas.", prompt_en: "Live out one piece of your faith today through action, not just words.", prompt_es: "Vive hoy una parte de tu fe a través de la acción, no solo con palabras." },
+  { day: 21, ref_en: "Philippians 4:11-12", ref_es: "Filipenses 4:11-12", verse_en: "For I have learned, in whatsoever state I am, therewith to be content... I know both how to be abased, and I know how to abound.", verse_es: "Porque he aprendido a contentarme, cualquiera que sea mi situación... sé vivir humildemente, y sé tener abundancia.", body_en: "Contentment isn't something you're simply born with, Paul says he learned it. That means it's possible for you too, in whatever season you're in, whether things are hard right now or going well.", body_es: "El contentamiento no es algo con lo que simplemente naces, Pablo dice que lo aprendió. Eso significa que también es posible para ti, en cualquier temporada en la que estés, ya sea que las cosas estén difíciles ahora o vayan bien.", prompt_en: "Practice contentment today by naming one thing you have, instead of focusing on what's missing.", prompt_es: "Practica el contentamiento hoy nombrando algo que tienes, en lugar de enfocarte en lo que falta." },
+  { day: 22, ref_en: "Philippians 4:13", ref_es: "Filipenses 4:13", verse_en: "I can do all things through Christ which strengtheneth me.", verse_es: "Todo lo puedo en Cristo que me fortalece.", body_en: "This verse is often quoted alone, but read in context right after verses about contentment, it's really about strength to endure both hard and good seasons, not a promise of unlimited success. His strength is enough for whatever today holds.", body_es: "Este versículo a menudo se cita solo, pero leído en contexto justo después de los versículos sobre el contentamiento, en realidad se trata de la fuerza para soportar tanto las temporadas difíciles como las buenas, no una promesa de éxito ilimitado. Su fuerza es suficiente para lo que sea que traiga hoy.", prompt_en: "Lean on Christ's strength today for whatever specifically feels hard right now.", prompt_es: "Apóyate en la fuerza de Cristo hoy para lo que sea que se sienta difícil específicamente ahora mismo." },
+  { day: 23, ref_en: "Philippians 4:19", ref_es: "Filipenses 4:19", verse_en: "But my God shall supply all your need according to his riches in glory by Christ Jesus.", verse_es: "Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquesas en gloria en Cristo Jesús.", body_en: "This promise follows right after the Philippian church had generously supported Paul. Give generously, and trust that God takes care of those who give. His supply isn't limited by your circumstances, it's measured by His riches.", body_es: "Esta promesa viene justo después de que la iglesia de Filipos había apoyado generosamente a Pablo. Da generosamente, y confía en que Dios cuida a los que dan. Su provisión no está limitada por tus circunstancias, se mide por sus riquezas.", prompt_en: "Trust God today with a specific need, and thank Him in advance for His provision.", prompt_es: "Confía en Dios hoy con una necesidad específica, y dale gracias de antemano por su provisión." },
+  { day: 24, ref_en: "Philippians 1:27", ref_es: "Filipenses 1:27", verse_en: "Only let your conversation be as it becometh the gospel of Christ... that ye stand fast in one spirit, with one mind striving together for the faith of the gospel.", verse_es: "Solamente que os comportéis como es digno del evangelio de Cristo... que estéis firmes en un mismo espíritu, combatiendo unánimes por la fe del evangelio.", body_en: "Unity takes intentional effort. Paul wanted the church standing together, not scattered by disagreement. Living in a way that matches what you believe, in community with others doing the same, is worth striving for.", body_es: "La unidad requiere un esfuerzo intencional. Pablo quería que la iglesia estuviera unida, no dispersa por el desacuerdo. Vivir de una manera que coincida con lo que crees, en comunidad con otros que hacen lo mismo, vale la pena buscarlo.", prompt_en: "Pray today for unity within your own church or ministry community.", prompt_es: "Ora hoy por la unidad dentro de tu propia iglesia o comunidad de ministerio." },
+  { day: 25, ref_en: "Philippians 2:1-2", ref_es: "Filipenses 2:1-2", verse_en: "If there be therefore any consolation in Christ... fulfil ye my joy, that ye be likeminded, having the same love, being of one accord, of one mind.", verse_es: "Por tanto, si hay alguna consolación en Cristo... completad mi gozo, sintiendo lo mismo, teniendo el mismo amor, unánimes, sintiendo una misma cosa.", body_en: "Paul says real unity brings him joy, real completeness. Relationships built on genuine love and shared purpose matter deeply, both to us and to the people around us who benefit from that harmony.", body_es: "Pablo dice que la unidad verdadera le trae gozo, verdadera plenitud. Las relaciones construidas sobre amor genuino y propósito compartido importan profundamente, tanto para nosotros como para las personas a nuestro alrededor que se benefician de esa armonía.", prompt_en: "Reach out today to strengthen one relationship that matters to you.", prompt_es: "Comunícate hoy para fortalecer una relación que te importa." },
+  { day: 26, ref_en: "Philippians 2:14", ref_es: "Filipenses 2:14", verse_en: "Do all things without murmurings and disputings.", verse_es: "Haced todo sin murmuraciones y contiendas.", body_en: "This short verse is worth revisiting a second time in this series, because complaining is such an easy habit to fall into. It's short, but it's a daily practice, not a one-time decision. Some days it takes real intention to choose gratitude instead of grumbling.", body_es: "Este versículo corto vale la pena revisitarlo una segunda vez en esta serie, porque quejarse es un hábito muy fácil de adoptar. Es corto, pero es una práctica diaria, no una decisión de una sola vez. Algunos días se necesita verdadera intención para elegir la gratitud en lugar de la queja.", prompt_en: "Catch yourself today before a complaint slips out, and reframe it if you can.", prompt_es: "Detente hoy antes de que se te escape una queja, y replantéala si puedes." },
+  { day: 27, ref_en: "Philippians 3:1", ref_es: "Filipenses 3:1", verse_en: "Finally, my brethren, rejoice in the Lord. To write the same things to you, to me indeed is not grievous, but for you it is safe.", verse_es: "Por lo demás, hermanos míos, gozaos en el Señor. A mí no me es molesto el escribiros las mismas cosas, y para vosotros es seguro.", body_en: "Paul says repeating himself isn't a burden, it's protection. Sometimes the truths we've already heard are exactly what we need to hear again. Repetition isn't a sign you're behind, it's often exactly what keeps you steady.", body_es: "Pablo dice que repetirse a sí mismo no es una carga, es protección. A veces las verdades que ya hemos escuchado son exactamente lo que necesitamos escuchar de nuevo. La repetición no es señal de que estás atrasado, a menudo es exactamente lo que te mantiene firme.", prompt_en: "Revisit a truth you already know today, and let it sink in fresh.", prompt_es: "Revisita hoy una verdad que ya conoces, y déjala calar de nuevo." },
+  { day: 28, ref_en: "Philippians 3:10", ref_es: "Filipenses 3:10", verse_en: "That I may know him, and the power of his resurrection, and the fellowship of his sufferings, being made conformable unto his death.", verse_es: "A fin de conocerle, y el poder de su resurrección, y la participación de sus padecimientos, en conformidad a su muerte.", body_en: "Paul wanted to know Jesus fully, not just the comfortable parts. Real relationship includes both the power and the hard parts, the joy and the sacrifice. Knowing Christ deeply means embracing the whole picture, not a curated version.", body_es: "Pablo quería conocer a Jesús por completo, no solo las partes cómodas. La relación verdadera incluye tanto el poder como las partes difíciles, el gozo y el sacrificio. Conocer a Cristo profundamente significa abrazar el cuadro completo, no una versión seleccionada.", prompt_en: "Ask God today to help you know Him more fully, not just in the easy moments.", prompt_es: "Pídele a Dios hoy que te ayude a conocerlo más plenamente, no solo en los momentos fáciles." },
+  { day: 29, ref_en: "Philippians 4:1", ref_es: "Filipenses 4:1", verse_en: "Therefore, my brethren dearly beloved and longed for, my joy and crown, so stand fast in the Lord.", verse_es: "Así que, hermanos míos amados y deseados, gozo y corona mía, estad así firmes en el Señor.", body_en: "Paul calls this church his joy and his crown, deeply personal, warm language. Faith was never meant to be a solo journey. The people around you who encourage your walk with God are a genuine gift worth treasuring.", body_es: "Pablo llama a esta iglesia su gozo y su corona, un lenguaje profundamente personal y cálido. La fe nunca fue pensada como un camino solitario. Las personas a tu alrededor que animan tu caminar con Dios son un regalo genuino que vale la pena atesorar.", prompt_en: "Thank God today for the people who've encouraged your faith along the way.", prompt_es: "Dale gracias a Dios hoy por las personas que han animado tu fe en el camino." },
+  { day: 30, ref_en: "Philippians 4:23", ref_es: "Filipenses 4:23", verse_en: "The grace of our Lord Jesus Christ be with you all. Amen.", verse_es: "La gracia de nuestro Señor Jesucristo sea con todos vosotros. Amén.", body_en: "As this journey through Philippians comes to a close, Paul ends simply, with grace. After everything, joy, contentment, unity, peace, it all comes back to grace. That's a fitting place to land, and a fitting place to begin whatever comes next in your walk with God.", body_es: "Al terminar este recorrido por Filipenses, Pablo termina de manera simple, con gracia. Después de todo, gozo, contentamiento, unidad, paz, todo vuelve a la gracia. Ese es un buen lugar para aterrizar, y un buen lugar para comenzar lo que sea que venga después en tu caminar con Dios.", prompt_en: "Rest in God's grace today, and thank Him for these 30 days in Philippians.", prompt_es: "Descansa en la gracia de Dios hoy, y dale gracias por estos 30 días en Filipenses." }
+  ];
+
+  // Children's Bible Stories
+  const kidsBibleStories = [
+    { id: 1, title_en: "Creation", title_es: "La Creación", ref_en: "Genesis 1", ref_es: "Génesis 1", story_en: "In the very beginning, there was nothing but darkness. Then God spoke, and light appeared! Over six days, God made the sky, the land, the oceans, the sun, the moon, and every star. He made plants and trees, fish and birds, and every animal you can think of. Last of all, God made people. He made them to look like Him and to take care of everything He had made. When God finished, He looked at everything and said it was very good. On the seventh day, God rested.", story_es: "Al principio, no había nada más que oscuridad. Entonces Dios habló, ¡y apareció la luz! Durante seis días, Dios hizo el cielo, la tierra, los océanos, el sol, la luna y cada estrella. Hizo plantas y árboles, peces y aves, y todos los animales que puedas imaginar. Por último, Dios hizo a las personas. Las hizo para que se parecieran a Él y para que cuidaran todo lo que Él había hecho. Cuando Dios terminó, miró todo y dijo que era muy bueno. En el séptimo día, Dios descansó.", lesson_en: "God made everything, and He made it good. That includes you!", lesson_es: "Dios hizo todo, y lo hizo bueno. ¡Eso te incluye a ti!" },
+    { id: 2, title_en: "Noah's Ark", title_es: "El Arca de Noé", ref_en: "Genesis 6-9", ref_es: "Génesis 6-9", story_en: "A long time ago, the world had become very unkind, but there was one man named Noah who loved God. God told Noah to build a giant boat called an ark, because a great flood was coming. Noah listened, even though it took a very long time to build. He brought his family and two of every kind of animal onto the ark. Then the rain came, and it rained for forty days and forty nights. The ark floated safely on the water. When the rain finally stopped, Noah sent out a dove to look for dry land. It came back with an olive branch, a sign that the flood was ending. God placed a rainbow in the sky as a promise that He would never flood the whole earth again.", story_es: "Hace mucho tiempo, el mundo se había vuelto muy poco amable, pero había un hombre llamado Noé que amaba a Dios. Dios le dijo a Noé que construyera un barco gigante llamado arca, porque venía un gran diluvio. Noé obedeció, aunque tomó mucho tiempo construirlo. Llevó a su familia y dos de cada tipo de animal al arca. Entonces vino la lluvia, y llovió cuarenta días y cuarenta noches. El arca flotó a salvo sobre el agua. Cuando la lluvia finalmente paró, Noé envió una paloma para buscar tierra seca. Regresó con una rama de olivo, una señal de que el diluvio estaba terminando. Dios puso un arcoíris en el cielo como promesa de que nunca volvería a inundar toda la tierra.", lesson_en: "God kept Noah safe because Noah trusted and obeyed Him.", lesson_es: "Dios mantuvo a Noé a salvo porque Noé confió y obedeció." },
+    { id: 3, title_en: "David and Goliath", title_es: "David y Goliat", ref_en: "1 Samuel 17", ref_es: "1 Samuel 17", story_en: "A giant named Goliath was scaring the whole army of Israel. He was over nine feet tall, and none of the soldiers were brave enough to fight him. A young shepherd boy named David heard Goliath shouting mean things about God's people, and David wasn't afraid. He told the king he would fight the giant. David didn't wear heavy armor. He just took his sling and five smooth stones. When Goliath saw young David, he laughed. But David said, \"You come with a sword, but I come in the name of the Lord.\" David threw one stone, and it hit Goliath right in the forehead. The giant fell down, and the whole army of Israel cheered.", story_es: "Un gigante llamado Goliat estaba asustando a todo el ejército de Israel. Medía más de nueve pies de altura, y ninguno de los soldados era lo suficientemente valiente para pelear con él. Un joven pastor llamado David escuchó a Goliat gritando cosas malas sobre el pueblo de Dios, y David no tuvo miedo. Le dijo al rey que él pelearía contra el gigante. David no usó armadura pesada. Solo tomó su honda y cinco piedras lisas. Cuando Goliat vio al joven David, se rió. Pero David dijo: \"Tú vienes con espada, pero yo vengo en el nombre del Señor.\" David lanzó una piedra, y golpeó a Goliat justo en la frente. El gigante cayó, y todo el ejército de Israel celebró.", lesson_en: "You don't have to be the biggest or strongest when God is on your side.", lesson_es: "No tienes que ser el más grande o más fuerte cuando Dios está de tu lado." },
+    { id: 4, title_en: "Daniel and the Lions' Den", title_es: "Daniel en el Foso de los Leones", ref_en: "Daniel 6", ref_es: "Daniel 6", story_en: "Daniel loved God and prayed to Him every single day. Some jealous men tricked the king into making a law that said no one could pray to anyone but the king. Daniel kept praying to God anyway, just like always. The men caught him and told the king, so the king had no choice but to throw Daniel into a den full of hungry lions. The king couldn't sleep that night, worried about Daniel. Early the next morning, he rushed to the lions' den and called out. Daniel answered back, safe and sound! God had sent an angel to shut the lions' mouths all night long. The king was amazed and praised God for saving Daniel.", story_es: "Daniel amaba a Dios y le oraba todos los días. Unos hombres celosos engañaron al rey para que hiciera una ley que decía que nadie podía orarle a nadie más que al rey. Daniel siguió orando a Dios de todos modos, como siempre. Los hombres lo atraparon y le dijeron al rey, así que el rey no tuvo más opción que arrojar a Daniel a un foso lleno de leones hambrientos. El rey no pudo dormir esa noche, preocupado por Daniel. Temprano a la mañana siguiente, corrió al foso de los leones y llamó. ¡Daniel respondió, sano y salvo! Dios había enviado un ángel para cerrar la boca de los leones toda la noche. El rey se sorprendió y alabó a Dios por salvar a Daniel.", lesson_en: "God protects those who stay faithful to Him, even when it's scary.", lesson_es: "Dios protege a los que se mantienen fieles a Él, aun cuando da miedo." },
+    { id: 5, title_en: "Jonah and the Big Fish", title_es: "Jonás y el Gran Pez", ref_en: "Jonah 1-3", ref_es: "Jonás 1-3", story_en: "God asked Jonah to go to a city called Nineveh and tell the people to stop doing wrong things. Jonah didn't want to go, so he got on a boat going the opposite direction. A huge storm hit the sea, and the sailors were terrified. Jonah knew the storm was because he had run from God, so he told the sailors to throw him overboard. As soon as they did, the sea calmed down. Then a giant fish swallowed Jonah whole! Jonah was inside the fish for three days, and he prayed to God the whole time. God had the fish spit Jonah out onto dry land. This time, Jonah obeyed and went to Nineveh, and the people there listened and changed their ways.", story_es: "Dios le pidió a Jonás que fuera a una ciudad llamada Nínive y le dijera a la gente que dejara de hacer cosas malas. Jonás no quería ir, así que se subió a un barco que iba en dirección contraria. Una gran tormenta golpeó el mar, y los marineros estaban aterrorizados. Jonás sabía que la tormenta era porque había huido de Dios, así que le dijo a los marineros que lo lanzaran al mar. Tan pronto como lo hicieron, el mar se calmó. ¡Entonces un pez gigante se tragó a Jonás entero! Jonás estuvo dentro del pez tres días, y oró a Dios todo el tiempo. Dios hizo que el pez escupiera a Jonás en tierra seca. Esta vez, Jonás obedeció y fue a Nínive, y la gente allí escuchó y cambió su forma de vivir.", lesson_en: "God gives us second chances, even when we run the wrong way first.", lesson_es: "Dios nos da segundas oportunidades, aun cuando primero corremos en la dirección equivocada." },
+    { id: 6, title_en: "Moses and the Red Sea", title_es: "Moisés y el Mar Rojo", ref_en: "Exodus 14", ref_es: "Éxodo 14", story_en: "God's people, the Israelites, had been slaves in Egypt for a very long time. God chose Moses to lead them to freedom. Pharaoh finally let them go, but then he changed his mind and sent his army to chase them down. The Israelites reached the edge of the Red Sea with nowhere left to run, and the army was closing in fast. Moses raised his staff, and God parted the sea right down the middle! The people walked across on dry ground, with walls of water on both sides. Once they were safely across, the sea closed back up, and Pharaoh's army couldn't follow. The people sang and celebrated God's rescue.", story_es: "El pueblo de Dios, los israelitas, habían sido esclavos en Egipto por mucho tiempo. Dios eligió a Moisés para guiarlos a la libertad. El Faraón finalmente los dejó ir, pero luego cambió de opinión y envió a su ejército a perseguirlos. Los israelitas llegaron al borde del Mar Rojo sin ningún lugar a donde correr, y el ejército se acercaba rápido. ¡Moisés levantó su bastón, y Dios abrió el mar justo por la mitad! La gente cruzó por tierra seca, con paredes de agua a ambos lados. Una vez que cruzaron a salvo, el mar se cerró de nuevo, y el ejército del Faraón no pudo seguirlos. La gente cantó y celebró el rescate de Dios.", lesson_en: "When we feel stuck with nowhere to go, God can still make a way.", lesson_es: "Cuando nos sentimos atrapados sin salida, Dios todavía puede abrir un camino." },
+    { id: 7, title_en: "Joseph and His Coat of Many Colors", title_es: "José y su Túnica de Colores", ref_en: "Genesis 37, 39-45", ref_es: "Génesis 37, 39-45", story_en: "Joseph's father gave him a beautiful, colorful coat, which made his older brothers very jealous. They were so jealous that they sold Joseph to traders, and he ended up as a slave in Egypt. Even through hard times, Joseph trusted God and worked hard. Eventually, Joseph was able to explain the meaning of the king's dreams, warning that a famine was coming. The king made Joseph a powerful leader in charge of saving up food. Years later, Joseph's brothers came to Egypt looking for food during the famine, not knowing it was Joseph they'd find. Instead of being angry, Joseph forgave his brothers and welcomed his whole family to live safely in Egypt.", story_es: "El padre de José le dio una túnica hermosa y colorida, lo que puso muy celosos a sus hermanos mayores. Estaban tan celosos que vendieron a José a unos comerciantes, y terminó como esclavo en Egipto. Incluso en tiempos difíciles, José confió en Dios y trabajó duro. Con el tiempo, José pudo explicar el significado de los sueños del rey, advirtiendo que venía una hambruna. El rey hizo a José un líder poderoso a cargo de guardar comida. Años después, los hermanos de José fueron a Egipto buscando comida durante la hambruna, sin saber que era a José a quien encontrarían. En lugar de enojarse, José perdonó a sus hermanos y recibió a toda su familia para vivir a salvo en Egipto.", lesson_en: "Even when others treat us badly, God can turn hard things into good.", lesson_es: "Aun cuando otros nos tratan mal, Dios puede convertir las cosas difíciles en algo bueno." },
+    { id: 8, title_en: "Baby Jesus is Born", title_es: "Nace el Niño Jesús", ref_en: "Luke 2", ref_es: "Lucas 2", story_en: "Mary and Joseph traveled to a town called Bethlehem, but every inn was full. They found shelter in a stable with the animals, and that night, baby Jesus was born. Mary wrapped Him snugly and laid Him in a manger, a feeding box for animals, since there was no crib. Out in the fields nearby, shepherds were watching their sheep when an angel appeared and told them wonderful news: a Savior had been born! A whole sky full of angels praised God. The shepherds hurried to Bethlehem and found baby Jesus just as the angel had said. Later, wise men from far away followed a bright star all the way to Jesus, bringing Him special gifts.", story_es: "María y José viajaron a un pueblo llamado Belén, pero todas las posadas estaban llenas. Encontraron refugio en un establo con los animales, y esa noche, nació el niño Jesús. María lo envolvió con cuidado y lo acostó en un pesebre, una caja para alimentar animales, ya que no había cuna. En los campos cercanos, unos pastores cuidaban sus ovejas cuando un ángel apareció y les dio noticias maravillosas: ¡había nacido un Salvador! Todo un cielo lleno de ángeles alabó a Dios. Los pastores se apresuraron a Belén y encontraron al niño Jesús tal como el ángel había dicho. Después, unos sabios de tierras lejanas siguieron una estrella brillante hasta llegar a Jesús, trayéndole regalos especiales.", lesson_en: "God sent Jesus as the greatest gift of all, for everyone, everywhere.", lesson_es: "Dios envió a Jesús como el regalo más grande de todos, para todos, en todas partes." },
+    { id: 9, title_en: "Jesus Feeds 5,000", title_es: "Jesús Alimenta a 5,000", ref_en: "John 6", ref_es: "Juan 6", story_en: "A huge crowd of over five thousand people followed Jesus out into the countryside to hear Him teach. As it got late, everyone was hungry, but there was no food nearby. A young boy offered up all he had: five small loaves of bread and two little fish. It didn't seem like nearly enough for so many people. Jesus took the boy's lunch, thanked God for it, and started breaking it into pieces to share. Somehow, the food kept multiplying as it was passed around. Everyone in the huge crowd ate until they were full, and there were even twelve baskets of leftovers at the end!", story_es: "Una gran multitud de más de cinco mil personas siguió a Jesús hasta el campo para escucharlo enseñar. Al caer la tarde, todos tenían hambre, pero no había comida cerca. Un niño ofreció todo lo que tenía: cinco panes pequeños y dos pescaditos. No parecía ser suficiente para tanta gente. Jesús tomó el almuerzo del niño, le dio gracias a Dios por él, y comenzó a partirlo en pedazos para compartir. De alguna manera, la comida seguía multiplicándose mientras se repartía. Toda la gran multitud comió hasta quedar satisfecha, ¡e incluso sobraron doce canastas al final!", lesson_en: "When we offer what little we have to God, He can make it more than enough.", lesson_es: "Cuando le ofrecemos a Dios lo poco que tenemos, Él puede hacer que sea más que suficiente." },
+    { id: 10, title_en: "Jesus Calms the Storm", title_es: "Jesús Calma la Tormenta", ref_en: "Mark 4", ref_es: "Marcos 4", story_en: "Jesus and His disciples got into a boat to cross a big lake. Jesus was so tired that He fell asleep in the back of the boat. Suddenly, a fierce storm rolled in, with huge waves crashing over the sides. The disciples were terrified, sure the boat was going to sink. They woke Jesus up, shouting, \"Don't you care that we're going to drown?\" Jesus stood up, looked at the wind and the waves, and simply said, \"Peace, be still.\" Instantly, the storm stopped and the water became calm and smooth. The disciples were amazed. They realized that even the wind and waves obeyed Jesus.", story_es: "Jesús y sus discípulos se subieron a una barca para cruzar un gran lago. Jesús estaba tan cansado que se quedó dormido en la parte trasera de la barca. De repente, una fuerte tormenta llegó, con olas enormes rompiendo sobre los lados. Los discípulos estaban aterrorizados, seguros de que la barca se iba a hundir. Despertaron a Jesús, gritando: \"¿No te importa que nos estemos hundiendo?\" Jesús se puso de pie, miró el viento y las olas, y simplemente dijo: \"Calla, enmudece.\" Al instante, la tormenta se detuvo y el agua se volvió calmada y suave. Los discípulos estaban asombrados. Se dieron cuenta de que hasta el viento y las olas obedecían a Jesús.", lesson_en: "When we feel afraid, Jesus is right there with us, even in the storm.", lesson_es: "Cuando sentimos miedo, Jesús está ahí mismo con nosotros, incluso en la tormenta." },
+    { id: 11, title_en: "The Good Samaritan", title_es: "El Buen Samaritano", ref_en: "Luke 10", ref_es: "Lucas 10", story_en: "Jesus told a story about a man who was traveling alone when robbers attacked him, took everything he had, and left him badly hurt on the side of the road. A religious leader walked by and saw the man, but crossed to the other side and kept walking. Another man did the very same thing. Then a Samaritan came along, someone whose people didn't usually get along with the hurt man's people. But the Samaritan didn't care about that. He stopped, bandaged the man's wounds, and carried him to an inn to recover. He even paid the innkeeper to take care of the man until he was well. Jesus asked, \"Which one of these three was a good neighbor?\" The answer was clear: the one who showed kindness.", story_es: "Jesús contó una historia sobre un hombre que viajaba solo cuando unos ladrones lo atacaron, le quitaron todo lo que tenía, y lo dejaron muy herido al lado del camino. Un líder religioso pasó y vio al hombre, pero cruzó al otro lado y siguió caminando. Otro hombre hizo exactamente lo mismo. Entonces llegó un samaritano, alguien cuya gente normalmente no se llevaba bien con la gente del hombre herido. Pero al samaritano no le importó eso. Se detuvo, vendó las heridas del hombre, y lo llevó a una posada para que se recuperara. Incluso le pagó al posadero para que cuidara al hombre hasta que sanara. Jesús preguntó: \"¿Cuál de estos tres fue un buen prójimo?\" La respuesta fue clara: el que mostró bondad.", lesson_en: "Being a good neighbor means showing kindness to anyone who needs help.", lesson_es: "Ser un buen prójimo significa mostrar bondad a cualquiera que necesite ayuda." },
+    { id: 12, title_en: "Jesus is Risen", title_es: "Jesús ha Resucitado", ref_en: "Matthew 28, Luke 24", ref_es: "Mateo 28, Lucas 24", story_en: "After Jesus died on the cross, His friends were heartbroken. His body was placed in a tomb, and a huge stone was rolled in front of the entrance. Early on the third morning, some women went to the tomb and found something amazing: the stone had been rolled away, and the tomb was empty! An angel told them not to be afraid, saying, \"He is not here, He has risen, just as He said!\" The women ran to tell the disciples the incredible news. Over the next days, Jesus appeared to His friends many times, showing them He was truly alive again. It was the greatest, happiest surprise anyone had ever known.", story_es: "Después de que Jesús murió en la cruz, sus amigos quedaron con el corazón roto. Su cuerpo fue puesto en una tumba, y una piedra enorme fue puesta frente a la entrada. Temprano en la mañana del tercer día, unas mujeres fueron a la tumba y encontraron algo asombroso: ¡la piedra había sido movida, y la tumba estaba vacía! Un ángel les dijo que no tuvieran miedo, diciendo: \"No está aquí, ha resucitado, tal como dijo!\" Las mujeres corrieron a contarles a los discípulos la noticia increíble. En los días siguientes, Jesús se apareció a sus amigos muchas veces, mostrándoles que verdaderamente estaba vivo otra vez. Fue la sorpresa más grande y feliz que nadie jamás había conocido.", lesson_en: "Jesus is alive, and that means His love and promises are true for us today.", lesson_es: "Jesús está vivo, y eso significa que su amor y sus promesas son verdaderas para nosotros hoy." }
+  ];
+
+  function renderKidsList() {
+    const isSpanish = document.body.classList.contains('lang-es');
+    const listEl = document.getElementById('kids-story-list');
+    listEl.innerHTML = kidsBibleStories.map(s => `
+      <button class="kids-story-card" onclick="openKidsStory(${s.id})">
+        <div class="kids-story-num">${s.id}</div>
+        <div class="kids-story-info">
+          <div class="title">${isSpanish ? s.title_es : s.title_en}</div>
+          <div class="ref">${isSpanish ? s.ref_es : s.ref_en}</div>
+        </div>
+        <span class="stop-arrow">›</span>
+      </button>
+    `).join('');
+  }
+
+  function openKidsStory(id) {
+    const s = kidsBibleStories.find(story => story.id === id);
+    if (!s) return;
+    const isSpanish = document.body.classList.contains('lang-es');
+    document.getElementById('kids-story-title').textContent = isSpanish ? s.title_es : s.title_en;
+    document.getElementById('kids-story-ref').textContent = isSpanish ? s.ref_es : s.ref_en;
+    document.getElementById('kids-story-text').textContent = isSpanish ? s.story_es : s.story_en;
+    document.getElementById('kids-story-lesson').textContent = isSpanish ? s.lesson_es : s.lesson_en;
+    document.getElementById('kids-list-view').style.display = 'none';
+    document.getElementById('kids-story-view').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function closeKidsStory() {
+    document.getElementById('kids-story-view').style.display = 'none';
+    document.getElementById('kids-list-view').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // Book registry: order matters, this defines the continuous flow across books
+  const devoBooks = [
+    { key: 'john', name_en: 'John', name_es: 'Juan', data: johnDevotionals },
+    { key: 'philippians', name_en: 'Philippians', name_es: 'Filipenses', data: philippiansDevotionals }
+    // Future books (Psalms, James, Romans) will be added here in order
+  ];
+
+  // Build one continuous list of all devotional days across every book
+  const allDevoDays = [];
+  devoBooks.forEach(book => {
+    book.data.forEach((entry, i) => {
+      allDevoDays.push({
+        ...entry,
+        bookKey: book.key,
+        bookName_en: book.name_en,
+        bookName_es: book.name_es,
+        isFirstDayOfBook: i === 0
+      });
+    });
+  });
+  const totalDevoDays = allDevoDays.length;
+
+  let currentDevoDay = 1; // 1-indexed position across the entire flow
+
+  function loadSavedDevoDay() {
+    try {
+      const saved = parseInt(localStorage.getItem('vm_devo_day'), 10);
+      if (saved >= 1 && saved <= totalDevoDays) return saved;
+    } catch (e) {}
+    return 1;
+  }
+
+  function saveDevoDay() {
+    try {
+      localStorage.setItem('vm_devo_day', currentDevoDay);
+    } catch (e) {}
+  }
+
+  currentDevoDay = loadSavedDevoDay();
+
+  function renderDevoDay() {
+    const d = allDevoDays[currentDevoDay - 1];
+    const isSpanish = document.body.classList.contains('lang-es');
+
+    document.getElementById('devo-series-label').textContent = isSpanish ? d.bookName_es : d.bookName_en;
+    document.getElementById('devo-day-num').textContent = currentDevoDay;
+    document.querySelector('.devo-day-label span:last-child').textContent = ' / ' + totalDevoDays;
+    document.getElementById('devo-ref').textContent = isSpanish ? d.ref_es : d.ref_en;
+    document.getElementById('devo-verse').textContent = isSpanish ? d.verse_es : d.verse_en;
+    document.getElementById('devo-body').textContent = isSpanish ? d.body_es : d.body_en;
+    document.getElementById('devo-prompt').textContent = isSpanish ? d.prompt_es : d.prompt_en;
+    document.getElementById('devo-prev').disabled = currentDevoDay === 1;
+    document.getElementById('devo-next').disabled = currentDevoDay === totalDevoDays;
+
+    // Show a brief, quiet note when crossing into a new book (but not on Day 1 itself)
+    const transitionNote = document.getElementById('devo-transition-note');
+    if (d.isFirstDayOfBook && currentDevoDay > 1) {
+      transitionNote.style.display = 'block';
+      transitionNote.innerHTML = `<span lang-en>Now beginning ${d.bookName_en}</span><span lang-es>Comenzando ${d.bookName_es}</span>`;
+    } else {
+      transitionNote.style.display = 'none';
+    }
+
+    saveDevoDay();
+  }
+
+  function changeDevoDay(delta) {
+    const next = currentDevoDay + delta;
+    if (next >= 1 && next <= totalDevoDays) {
+      currentDevoDay = next;
+      renderDevoDay();
+    }
+  }
+
+  function restartDevo() {
+    currentDevoDay = 1;
+    renderDevoDay();
+  }
+
+  function showPage(id) {
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+    if (id === 'devo') renderDevoDay();
+    if (id === 'bible') updateChapterOptions();
+    if (id === 'kids') {
+      document.getElementById('kids-story-view').style.display = 'none';
+      document.getElementById('kids-list-view').style.display = 'block';
+      renderKidsList();
+    }
+  }
+
+  function setLang(lang) {
+    document.body.classList.toggle('lang-es', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+    document.getElementById('btn-es').setAttribute('aria-pressed', lang === 'es');
+    document.documentElement.lang = lang;
+    renderDevoDay();
+    renderKidsList();
+  }
+
+  // Chapter counts for all 66 books, used to populate the chapter dropdown correctly
+  const bibleChapterCounts = {
+    "Genesis": 50, "Exodus": 40, "Leviticus": 27, "Numbers": 36, "Deuteronomy": 34,
+    "Joshua": 24, "Judges": 21, "Ruth": 4, "1 Samuel": 31, "2 Samuel": 24,
+    "1 Kings": 22, "2 Kings": 25, "1 Chronicles": 29, "2 Chronicles": 36, "Ezra": 10,
+    "Nehemiah": 13, "Esther": 10, "Job": 42, "Psalms": 150, "Proverbs": 31,
+    "Ecclesiastes": 12, "Song of Solomon": 8, "Isaiah": 66, "Jeremiah": 52, "Lamentations": 5,
+    "Ezekiel": 48, "Daniel": 12, "Hosea": 14, "Joel": 3, "Amos": 9,
+    "Obadiah": 1, "Jonah": 4, "Micah": 7, "Nahum": 3, "Habakkuk": 3,
+    "Zephaniah": 3, "Haggai": 2, "Zechariah": 14, "Malachi": 4,
+    "Matthew": 28, "Mark": 16, "Luke": 24, "John": 21, "Acts": 28,
+    "Romans": 16, "1 Corinthians": 16, "2 Corinthians": 13, "Galatians": 6, "Ephesians": 6,
+    "Philippians": 4, "Colossians": 4, "1 Thessalonians": 5, "2 Thessalonians": 3, "1 Timothy": 6,
+    "2 Timothy": 4, "Titus": 3, "Philemon": 1, "Hebrews": 13, "James": 5,
+    "1 Peter": 5, "2 Peter": 3, "1 John": 5, "2 John": 1, "3 John": 1,
+    "Jude": 1, "Revelation": 22
+  };
+
+  function updateChapterOptions() {
+    const book = document.getElementById('book-select').value;
+    const total = bibleChapterCounts[book] || 1;
+    const chapterSelect = document.getElementById('chapter-select');
+    let options = '';
+    for (let i = 1; i <= total; i++) {
+      options += `<option value="${i}">${i}</option>`;
+    }
+    chapterSelect.innerHTML = options;
+  }
+
+  async function loadScripture() {
+    const book = document.getElementById('book-select').value;
+    const chapter = document.getElementById('chapter-select').value;
+    const isSpanish = document.body.classList.contains('lang-es');
+    const output = document.getElementById('bible-output');
+    output.innerHTML = '<p class="status">' + (isSpanish ? 'Cargando...' : 'Loading...') + '</p>';
+
+    try {
+      // KJV for English, Reina-Valera for Spanish, via bible-api.com
+      const translation = isSpanish ? 'rvr' : 'kjv';
+      const ref = encodeURIComponent(book + ' ' + chapter);
+      const res = await fetch('https://bible-api.com/' + ref + '?translation=' + translation);
+      const data = await res.json();
+
+      if (data.verses && data.verses.length) {
+        let html = '<div style="margin-bottom:10px;font-weight:700;color:#0E5C5E;">' + data.reference + '</div>';
+        data.verses.forEach(v => {
+          html += '<p style="margin-bottom:8px;"><strong>' + v.verse + '</strong> ' + v.text.trim() + '</p>';
+        });
+        output.innerHTML = html;
+      } else {
+        output.innerHTML = '<p class="status">' + (isSpanish ? 'No se pudo cargar. Intenta de nuevo.' : "Couldn't load that chapter. Please try again.") + '</p>';
+      }
+    } catch (e) {
+      output.innerHTML = '<p class="status">' + (isSpanish ? 'No se pudo cargar. Revisa tu conexión.' : "Couldn't load. Please check your connection.") + '</p>';
+    }
+  }
+
+  // Populate the chapter dropdown immediately so it's ready before first navigation
+  updateChapterOptions();
+</script>
+
+</body>
+</html>
