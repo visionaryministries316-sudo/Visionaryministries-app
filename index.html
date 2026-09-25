@@ -391,6 +391,40 @@
     cursor: pointer;
   }
 
+  .audio-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .audio-btn {
+    flex: 1;
+    background: var(--gold);
+    color: var(--teal-dark);
+    border: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .audio-btn.audio-stop {
+    background: var(--sky);
+    color: var(--teal-dark);
+    flex: 0 0 auto;
+    padding: 12px 20px;
+  }
+
+  .audio-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   .bible-text {
     background: var(--white);
     border-radius: 16px;
@@ -886,6 +920,15 @@
       <button class="go-btn" style="width:100%;margin-bottom:18px;" onclick="loadScripture()">
         <span lang-en>Show Chapter</span><span lang-es>Mostrar Capítulo</span>
       </button>
+      <div class="audio-controls" id="audio-controls" style="display:none;">
+        <button class="audio-btn" id="audio-play-btn" onclick="toggleAudioPlayback()">
+          <span id="audio-play-icon">▶</span>
+          <span id="audio-play-label"><span lang-en>Listen</span><span lang-es>Escuchar</span></span>
+        </button>
+        <button class="audio-btn audio-stop" id="audio-stop-btn" onclick="stopAudioPlayback()" style="display:none;">
+          ■ <span lang-en>Stop</span><span lang-es>Detener</span>
+        </button>
+      </div>
       <div class="bible-text" id="bible-output">
         <p class="status"><span lang-en>Pick a book and chapter, then tap "Show Chapter."</span><span lang-es>Elige un libro y capítulo, luego toca "Mostrar Capítulo."</span></p>
       </div>
@@ -1271,6 +1314,8 @@
     const isSpanish = document.body.classList.contains('lang-es');
     const output = document.getElementById('bible-output');
     output.innerHTML = '<p class="status">' + (isSpanish ? 'Cargando...' : 'Loading...') + '</p>';
+    stopAudioPlayback();
+    document.getElementById('audio-controls').style.display = 'none';
 
     try {
       // KJV for English, Reina-Valera for Spanish, via bible-api.com
@@ -1285,6 +1330,11 @@
           html += '<p style="margin-bottom:8px;"><strong>' + v.verse + '</strong> ' + v.text.trim() + '</p>';
         });
         output.innerHTML = html;
+
+        // Store the plain reading text (no verse numbers) for the audio player
+        currentChapterAudioText = data.reference + '. ' + data.verses.map(v => v.text.trim()).join(' ');
+        currentChapterAudioLang = isSpanish ? 'es' : 'en';
+        document.getElementById('audio-controls').style.display = 'flex';
       } else {
         output.innerHTML = '<p class="status">' + (isSpanish ? 'No se pudo cargar. Intenta de nuevo.' : "Couldn't load that chapter. Please try again.") + '</p>';
       }
@@ -1292,6 +1342,102 @@
       output.innerHTML = '<p class="status">' + (isSpanish ? 'No se pudo cargar. Revisa tu conexión.' : "Couldn't load. Please check your connection.") + '</p>';
     }
   }
+
+  // ---- Read-aloud (text-to-speech) for the Bible reader ----
+  let currentChapterAudioText = '';
+  let currentChapterAudioLang = 'en';
+  let currentUtterance = null;
+  let isPaused = false;
+
+  function pickVoiceForLang(lang) {
+    const voices = window.speechSynthesis.getVoices();
+    const prefix = lang === 'es' ? 'es' : 'en';
+    return voices.find(v => v.lang.toLowerCase().startsWith(prefix)) || null;
+  }
+
+  function toggleAudioPlayback() {
+    const synth = window.speechSynthesis;
+
+    // Resume if paused
+    if (isPaused) {
+      synth.resume();
+      isPaused = false;
+      updateAudioButtonState('playing');
+      return;
+    }
+
+    // Pause if currently speaking
+    if (synth.speaking) {
+      synth.pause();
+      isPaused = true;
+      updateAudioButtonState('paused');
+      return;
+    }
+
+    // Otherwise, start fresh
+    if (!currentChapterAudioText) return;
+
+    if (!('speechSynthesis' in window)) {
+      alert(currentChapterAudioLang === 'es'
+        ? 'Lo sentimos, tu navegador no admite lectura en voz alta.'
+        : "Sorry, your browser doesn't support read-aloud.");
+      return;
+    }
+
+    synth.cancel(); // clear any leftover queue
+    const utterance = new SpeechSynthesisUtterance(currentChapterAudioText);
+    utterance.lang = currentChapterAudioLang === 'es' ? 'es-ES' : 'en-US';
+    const voice = pickVoiceForLang(currentChapterAudioLang);
+    if (voice) utterance.voice = voice;
+    utterance.rate = 0.95;
+
+    utterance.onend = () => {
+      updateAudioButtonState('idle');
+    };
+    utterance.onerror = () => {
+      updateAudioButtonState('idle');
+    };
+
+    currentUtterance = utterance;
+    synth.speak(utterance);
+    updateAudioButtonState('playing');
+  }
+
+  function stopAudioPlayback() {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    isPaused = false;
+    updateAudioButtonState('idle');
+  }
+
+  function updateAudioButtonState(state) {
+    const icon = document.getElementById('audio-play-icon');
+    const label = document.getElementById('audio-play-label');
+    const stopBtn = document.getElementById('audio-stop-btn');
+    const isSpanish = document.body.classList.contains('lang-es');
+
+    if (state === 'playing') {
+      icon.textContent = '❚❚';
+      label.innerHTML = isSpanish ? 'Pausar' : 'Pause';
+      stopBtn.style.display = 'inline-flex';
+    } else if (state === 'paused') {
+      icon.textContent = '▶';
+      label.innerHTML = isSpanish ? 'Reanudar' : 'Resume';
+      stopBtn.style.display = 'inline-flex';
+    } else {
+      icon.textContent = '▶';
+      label.innerHTML = '<span lang-en>Listen</span><span lang-es>Escuchar</span>';
+      stopBtn.style.display = 'none';
+    }
+  }
+
+  // Stop any playback if the person navigates away from the Bible page
+  const originalShowPageForAudio = showPage;
+  showPage = function(id) {
+    if (id !== 'bible') stopAudioPlayback();
+    originalShowPageForAudio(id);
+  };
 
   // Populate the chapter dropdown immediately so it's ready before first navigation
   updateChapterOptions();
